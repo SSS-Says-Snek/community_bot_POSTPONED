@@ -1,2 +1,2 @@
 worker: python community_bot.py
-worker: python cogs/BuiltInCogs.py
+worker: python "Community Bot"/cogs/BuiltInCogs.py
