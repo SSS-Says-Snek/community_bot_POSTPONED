@@ -55,13 +55,17 @@ async def changestatus(ctx, status):
 # for filename in os.listdir('./cogs'):
 #    if filename.endswith('.py'):
 #        bot.load_extension(f"cogs.{filename[:-3]}")
+extensions = 'cogs.BuiltInCogs'
 
-bot.load_extension('cogs.BuiltInCogs')
+if __name__ == '__main__':
+    for ext in extensions:
+        bot.load_extension(ext)
+
+    bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.Wr2GsrjU78H1pqNw92NPmzahicQ')
 
 # NOTE: runs this program. VERY IMPORTANT FOR MEEEE.
 # bot.run('NzE5MTk1ODQ2MjYwMDMxNTM5.Xv-9eQ.xIPU-AdK5U-zfW_v_wQ-SrIztoY') # NOTE Aidan's BOT
 
 # bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.iB_UROqNQjz5XYWeg9_6TgGHGEc') # NOTE OLD TOKEN (RESET BY DISCORD)
 
-bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.Wr2GsrjU78H1pqNw92NPmzahicQ')
 
