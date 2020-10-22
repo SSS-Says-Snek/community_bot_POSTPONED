@@ -5,8 +5,7 @@ haha gonna implement this soon
 import discord
 from discord.ext import commands  # Imports discord extensions.
 
-intents = discord.Intents.default()
-intents.members = True
+intents = discord.Intents.all()
 
 # NOTE: The below code verifies the "client".
 bot = commands.Bot(command_prefix='$', description='- shows this message', intents=intents)
