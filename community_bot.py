@@ -4,7 +4,9 @@ haha gonna implement this soon
 
 import discord
 from discord.ext import commands  # Imports discord extensions.
+import os
 
+os.chdir(r"C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot")
 intents = discord.Intents.all()
 
 # NOTE: The below code verifies the "client".
