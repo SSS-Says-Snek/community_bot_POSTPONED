@@ -51,10 +51,10 @@ async def changestatus(ctx, status):
 #     if request == 'load':
 #         await ctx.send('```Load\nThis command loads a cog. \n\nExample: (pref)load cogs.(cog name)')
 
-# for filename in os.listdir('./cogs'):
-#    if filename.endswith('.py'):
-#        bot.load_extension(f"cogs.{filename[:-3]}")
-extensions = ['cogs.BuiltInCogs']
+# for filename in os.listdir('./cogs'): if filename.endswith('.py'): bot.load_extension(f"cogs.{filename[:-3]}")
+# TODO: I think that I can
+#  now deploy it to heroku. I just have to remember to specify the path file things more. I hope. Do this in the MORNINGGGGGGG
+extensions = [r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs.BuiltInCogs']
 
 if __name__ == '__main__':
     for ext in extensions:
