@@ -32,6 +32,7 @@ async def unload(ctx, extension):
     bot.unload_extension(extension)
 
 
+# MinorNote: Hey look, FINALLY. A normal command!
 @bot.command()
 async def changestatus(ctx, status):
     """- changes the bot status"""
@@ -48,14 +49,18 @@ async def changestatus(ctx, status):
         await bot.change_presence(status=discord.Status.idle)
         await ctx.send('Bot status set to idle')
 
+
+@bot.command()
+async def pythonlogo(ctx):
+    # python_file = discord.File(filename=)
+    pass
+
 # @bot.command()
 # async def commands(ctx, request):
 #     if request == 'load':
 #         await ctx.send('```Load\nThis command loads a cog. \n\nExample: (pref)load cogs.(cog name)')
 
 # for filename in os.listdir('./cogs'): if filename.endswith('.py'): bot.load_extension(f"cogs.{filename[:-3]}")
-# TODO: I think that I can
-#  now deploy it to heroku. I just have to remember to specify the path file things more. I hope. Do this in the MORNINGGGGGGG
 extensions = ['cogs.BuiltInCogs']
 
 if __name__ == '__main__':
@@ -64,9 +69,7 @@ if __name__ == '__main__':
 
     bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.Wr2GsrjU78H1pqNw92NPmzahicQ')
 
-# NOTE: runs this program. VERY IMPORTANT FOR MEEEE.
+# NOTE: runs this program. VERY IMPORTANT FOR ME........
 # bot.run('NzE5MTk1ODQ2MjYwMDMxNTM5.Xv-9eQ.xIPU-AdK5U-zfW_v_wQ-SrIztoY') # NOTE Aidan's BOT
-
-# bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.iB_UROqNQjz5XYWeg9_6TgGHGEc') # NOTE OLD TOKEN (RESET BY DISCORD)
 
 
