@@ -27,3 +27,7 @@ E
 PyInstaller_test.spec,1\5\1582191ce98e2232c3e8a7e116059f47c86634a2
 L
 cogs/Doc/BuiltInCogs_doc.txt,a\d\adbfc23ddf9509b4a570c524a0ac4f51cc3defea
+E
+cogs/infractions.json,5\6\565bab50ddfa027f8dd17c9446ba4f02978289b8
+\
+,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
