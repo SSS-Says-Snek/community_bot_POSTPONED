@@ -31,3 +31,5 @@ E
 cogs/infractions.json,5\6\565bab50ddfa027f8dd17c9446ba4f02978289b8
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4\9\496a238a6afa168dbaf6efd37bb459331589579c
+C
+cogs/user_info.json,7\6\764a78460a63f46b279ec0a88493167675a725a0

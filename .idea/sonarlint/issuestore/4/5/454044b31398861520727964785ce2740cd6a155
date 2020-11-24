@@ -1,9 +1,7 @@
 
-kpython:S1134="LTake the required action to fix the issue indicated by this "FIXME" comment.(ÃĞ€é8øŸ›îÌ.
-<python:S3457œ"Remove this unused argument.(êğ¨§8ı¼­ÔÍ.
-lpython:S1134¹"LTake the required action to fix the issue indicated by this "FIXME" comment.(ïˆ»Ñ8¼ÂßáÏ.
-lpython:S1134Ÿ"LTake the required action to fix the issue indicated by this "FIXME" comment.(İÔÒ8øŸ›îÌ.
-qpython:S1134º"LTake the required action to fix the issue indicated by this "FIXME" comment.(öôÜ«ıÿÿÿÿ8øŸ›îÌ.
->python:S125å"Remove this commented out code.(æéôõ8øŸ›îÌ.
-Hpython:S108ú")Either remove or fill this block of code.(ã‘Û¾8øŸ›îÌ.
-Xpython:S1481"8Remove the unused local variable "test_forbidden_words".(êÔ¬¿8Šíÿ²Ú.
+ipython:S1134"LTake the required action to fix the issue indicated by this "FIXME" comment.(İÔÒ8øŸ›îÌ.
+ipython:S1134"LTake the required action to fix the issue indicated by this "FIXME" comment.(ïˆ»Ñ8¼ÂßáÏ.
+;python:S125"Remove this commented out code.(æéôõ8øŸ›îÌ.
+9python:S3457"Remove this unused argument.(êğ¨§8ı¼­ÔÍ.
+npython:S1134"LTake the required action to fix the issue indicated by this "FIXME" comment.(öôÜ«ıÿÿÿÿ8øŸ›îÌ.
+ipython:S1134"LTake the required action to fix the issue indicated by this "FIXME" comment.(Íé‹—8ÑÑæÎİ.

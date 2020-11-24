@@ -4,9 +4,7 @@ haha gonna implement this soon
 
 import discord
 from discord.ext import commands  # Imports discord extensions.
-import os
 
-os.chdir(r"C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot")
 intents = discord.Intents.all()
 
 # NOTE: The below code verifies the "client".
@@ -61,13 +59,14 @@ async def pythonlogo(ctx):
 #         await ctx.send('```Load\nThis command loads a cog. \n\nExample: (pref)load cogs.(cog name)')
 
 # for filename in os.listdir('./cogs'): if filename.endswith('.py'): bot.load_extension(f"cogs.{filename[:-3]}")
-extensions = ['cogs.BuiltInCogs']
+pre_loaded_extensions = ['cogs.BuiltInCogs']
 
 if __name__ == '__main__':
-    for ext in extensions:
+    for ext in pre_loaded_extensions:
         bot.load_extension(ext)
+        print(f"Loading pre-loaded cog: {ext}...")
 
-    bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.Wr2GsrjU78H1pqNw92NPmzahicQ')
+    bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.0dsRJtKzGHPz_-tFCfGRmaxcduI')
 
 # NOTE: runs this program. VERY IMPORTANT FOR ME........
 # bot.run('NzE5MTk1ODQ2MjYwMDMxNTM5.Xv-9eQ.xIPU-AdK5U-zfW_v_wQ-SrIztoY') # NOTE Aidan's BOT
