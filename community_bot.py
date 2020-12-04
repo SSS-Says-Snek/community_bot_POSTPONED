@@ -20,13 +20,13 @@ def is_guild_owner():
 # NOTE: EMERGENCY CMD
 @bot.command()
 async def load(ctx, extension):
-    """- loads a module. Use in case of emergency. Also good for Debugging."""
+    """- loads a module. Use in case of emergency. Also, good for Debugging."""
     bot.load_extension(extension)
 
 
 @bot.command()
 async def unload(ctx, extension):
-    """- unloads a module. Use in case of emergency. Also good for Debugging."""
+    """- unloads a module. Use in case of emergency. Also, good for Debugging."""
     bot.unload_extension(extension)
 
 
@@ -50,8 +50,9 @@ async def changestatus(ctx, status):
 
 @bot.command()
 async def pythonlogo(ctx):
-    # python_file = discord.File(filename=)
     pass
+    # python_file = discord.File(filename=)
+    # TODO: You know, ADD THE DANG THING
 
 # @bot.command()
 # async def commands(ctx, request):
@@ -66,9 +67,8 @@ if __name__ == '__main__':
         bot.load_extension(ext)
         print(f"Loading pre-loaded cog: {ext}...")
 
+    print('Finished loading all cogs. Preparing to run bot...')
     bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.0dsRJtKzGHPz_-tFCfGRmaxcduI')
 
 # NOTE: runs this program. VERY IMPORTANT FOR ME........
 # bot.run('NzE5MTk1ODQ2MjYwMDMxNTM5.Xv-9eQ.xIPU-AdK5U-zfW_v_wQ-SrIztoY') # NOTE Aidan's BOT
-
-
