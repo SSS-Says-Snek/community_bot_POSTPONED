@@ -1,19 +1,20 @@
 """
-haha gonna implement this soon
+haha gonna implement this soon. SOON. SOON
 """
 
 import discord
 from discord.ext import commands  # Imports discord extensions.
-
-intents = discord.Intents.all()
+import discord_slash
 
 # NOTE: The below code verifies the "client".
+intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='$', description='- shows this message', intents=intents)
 
 
 def is_guild_owner():
     def predicate(ctx):
         return ctx.guild is not None and ctx.guild.owner_id == ctx.author.id
+
     return commands.check(predicate)
 
 
@@ -53,6 +54,7 @@ async def pythonlogo(ctx):
     pass
     # python_file = discord.File(filename=)
     # TODO: You know, ADD THE DANG THING
+
 
 # @bot.command()
 # async def commands(ctx, request):
