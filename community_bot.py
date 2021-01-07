@@ -5,15 +5,30 @@ haha gonna implement this soon. SOON. SOON
 import discord
 from discord.ext import commands  # Imports discord extensions.
 import discord_slash
+import json
 
 # NOTE: The below code verifies the "client".
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='$', description='- shows this message', intents=intents)
 
+PATH_TO_VARIABLES_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files\variables.json'
+
 
 def is_guild_owner():
     def predicate(ctx):
         return ctx.guild is not None and ctx.guild.owner_id == ctx.author.id
+
+    return commands.check(predicate)
+
+
+def is_shutdown():
+    """checks if the bot is shutdown or not"""
+
+    with open(PATH_TO_VARIABLES_JSON) as read_var_json:
+        suppress_guild_owner_commands = json.load(read_var_json)["shutdown"]
+
+    def predicate(ctx):
+        return not suppress_guild_owner_commands
 
     return commands.check(predicate)
 
@@ -70,7 +85,7 @@ if __name__ == '__main__':
         print(f"Loading pre-loaded cog: {ext}...")
 
     print('Finished loading all cogs. Preparing to run bot...')
-    bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.0dsRJtKzGHPz_-tFCfGRmaxcduI')
+    bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.P07lcXJQUD9ODTe8qS44og-AMaA')
 
 # NOTE: runs this program. VERY IMPORTANT FOR ME........
 # bot.run('NzE5MTk1ODQ2MjYwMDMxNTM5.Xv-9eQ.xIPU-AdK5U-zfW_v_wQ-SrIztoY') # NOTE Aidan's BOT
