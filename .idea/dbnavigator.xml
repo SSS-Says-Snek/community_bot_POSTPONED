@@ -25,7 +25,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="a2ea1fdc-86fe-4c31-8015-9edbc3062afe">
-        <schema name="discord_bot" object-types="function, table, view, procedure" />
+        <schema name="discord_bot" object-types="function, column, dataset trigger, table, constraint, view, index, procedure" />
         <schema name="test" object-types="function, table, view, index, procedure" />
       </connection>
     </loaded-nodes>
