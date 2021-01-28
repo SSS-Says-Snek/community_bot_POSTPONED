@@ -46,7 +46,8 @@ async def unload(ctx, extension):
     bot.unload_extension(extension)
 
 
-# MinorNote: Hey look, FINALLY. A normal command!
+# MinorNote: Hey look, FINALLY.
+#  A normal command!
 @bot.command()
 async def changestatus(ctx, status):
     """- changes the bot status"""
