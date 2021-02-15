@@ -1,6 +1,8 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
+    <inspection_tool class="BuiltinExecInspection" enabled="true" level="Strong Warning" enabled_by_default="true" />
+    <inspection_tool class="MakoTemplateInspection" enabled="true" level="Strong Warning" enabled_by_default="true" />
     <inspection_tool class="PyPackageRequirementsInspection" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="ignoredPackages">
         <value>
@@ -30,6 +32,7 @@
         </list>
       </option>
     </inspection_tool>
+    <inspection_tool class="SqlInjectionInspection" enabled="true" level="Strong Warning" enabled_by_default="true" />
     <inspection_tool class="TodoComment" enabled="true" level="INFORMATION" enabled_by_default="true" />
   </profile>
 </component>

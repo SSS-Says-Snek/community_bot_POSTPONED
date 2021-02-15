@@ -1,5 +1,5 @@
 """
-haha gonna implement this soon. SOON. SOON
+haha gonna implement this soon. SOON. SOON. MAYBE SOON
 """
 
 import discord
@@ -86,7 +86,6 @@ if __name__ == '__main__':
         print(f"Loading pre-loaded cog: {ext}...")
 
     print('Finished loading all cogs. Preparing to run bot...')
-    bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.P07lcXJQUD9ODTe8qS44og-AMaA')
-
-# NOTE: runs this program. VERY IMPORTANT FOR ME........
-# bot.run('NzE5MTk1ODQ2MjYwMDMxNTM5.Xv-9eQ.xIPU-AdK5U-zfW_v_wQ-SrIztoY') # NOTE Aidan's BOT
+    # NOTE: runs this program. VERY IMPORTANT FOR ME........
+    bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.cpnR5i-3dK4z6nHUp_sN2vB5UDI')
+    # bot.run('NzE5MTk1ODQ2MjYwMDMxNTM5.Xv-9eQ.xIPU-AdK5U-zfW_v_wQ-SrIztoY') # NOTE Aidan's BOT

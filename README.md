@@ -6,7 +6,7 @@ some files that are not on your computer. But that's fine! This is only to admir
 <p>
     Features include:
         <ul>
-        THIS .md file
+        THIS .md file (ooh 10/10 cool very impressive)
     </ul>
     <ul>
         A <strong>.py</strong> file to actually run the dang thing. (Please don't run.)
@@ -29,7 +29,7 @@ Hopefully, I can change the bot from a test bot into a real bot!
 ------------------------------------------------------------------
 <strong>INFO</strong>
 ------------------------------------------------------------------</p>
-VERSION: 0.5.1
+VERSION: 0.6.5
 <p>
 
 OWNER: Brandon Cui
