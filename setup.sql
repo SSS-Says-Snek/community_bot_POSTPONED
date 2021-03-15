@@ -1,6 +1,6 @@
 -- THIS IS COMMUNITY BOT'S SETUP
 
-CREATE TABLE IF NOT EXISTS members (
+CREATE TABLE IF NOT EXISTS members_old (
     id BIGINT PRIMARY KEY,
     username VARCHAR(35) NOT NULL,
     discriminator INT,
@@ -9,13 +9,16 @@ CREATE TABLE IF NOT EXISTS members (
     bot_banned BOOL
 );
 
-CREATE TABLE IF NOT EXISTS members_prototype (
+CREATE TABLE IF NOT EXISTS members (
     id BIGINT PRIMARY KEY,
     username VARCHAR(35) NOT NULL,
-    date_created DATE,
+    date_created TIMESTAMP,
+    date_joined TIMESTAMP,
     discriminator INT,
     overall_infractions INT,
     audit_log_infractions INT,
+    messages_sent BIGINT,
+    xp BIGINT,
     bot_banned BOOL,
     bot BOOL
     -- role_uid INT
@@ -49,7 +52,18 @@ CREATE TABLE IF NOT EXISTS guilds (
     date_created DATE
 );
 
+CREATE TABLE IF NOT EXISTS pings (
+    latency INT,
+    datetime_object TIMESTAMP,
+    PRIMARY KEY (latency , datetime_object)
+);
+
 SELECT * FROM members;
 SELECT * FROM roles;
 SELECT * FROM guilds;
-SELECT * FROM members_test;
+SELECT * FROM members_old;
+SELECT * FROM pings ORDER BY datetime_object ASC;
+SELECT overall_infractions, audit_log_infractions FROM members;
+-- TRUNCATE TABLE pings;
+-- DROP TABLE pings;
+-- ALTER TABLE members ADD COLUMN xp BIGINT AFTER messages_sent;

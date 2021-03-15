@@ -4,12 +4,15 @@ haha gonna implement this soon. SOON. SOON. MAYBE SOON
 
 import discord
 from discord.ext import commands  # Imports discord extensions.
-import discord_slash
+from discord_slash import SlashCommand, SlashContext
 import json
+from cogs.constants import *
 
+guilds = [COMMUNITY_ID]
 # NOTE: The below code verifies the "client".
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='$', description='- shows this message', intents=intents)
+slash = SlashCommand(bot, auto_register=True)
 
 PATH_TO_VARIABLES_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files\variables.json'
 
@@ -37,7 +40,12 @@ def is_shutdown():
 @bot.command()
 async def load(ctx, extension):
     """- loads a module. Use in case of emergency. Also, good for Debugging."""
-    bot.load_extension(extension)
+    try:
+        bot.load_extension(extension)
+    except Exception as e:
+        await ctx.send(f"**`ERROR:`** {e}")
+    else:
+        await ctx.send("Success I guess")
 
 
 @bot.command()
@@ -72,6 +80,11 @@ async def pythonlogo(ctx):
     # TODO: You know, ADD THE DANG THING
 
 
+@slash.slash(name="test", description="Plz", guild_ids=guilds)
+async def _ping(ctx: SlashContext):
+    await ctx.send(3, content="Nya ha ha, only you can see this", hidden=True)
+
+
 # @bot.command()
 # async def commands(ctx, request):
 #     if request == 'load':
@@ -87,5 +100,5 @@ if __name__ == '__main__':
 
     print('Finished loading all cogs. Preparing to run bot...')
     # NOTE: runs this program. VERY IMPORTANT FOR ME........
-    bot.run('NzUzMjk1NzAzMDc3NDIxMDY2.X1kHSw.cpnR5i-3dK4z6nHUp_sN2vB5UDI')
+    bot.run(TOKEN)
     # bot.run('NzE5MTk1ODQ2MjYwMDMxNTM5.Xv-9eQ.xIPU-AdK5U-zfW_v_wQ-SrIztoY') # NOTE Aidan's BOT
