@@ -24,12 +24,7 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="76edd713-a794-4a2c-a89d-e7d5f6f8534c">
-        <schema name="discord_bot" object-types="dataset trigger, procedure, view, constraint, index, table, column, function" />
-        <schema name="information_schema" object-types="procedure, view, table, function" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="76edd713-a794-4a2c-a89d-e7d5f6f8534c">
@@ -304,8 +299,6 @@
           <object-type name="TABLE" enabled="true" />
           <object-type name="VIEW" enabled="true" />
           <object-type name="MATERIALIZED VIEW" enabled="true" />
-          <object-type name="NESTED TABLE" enabled="false" />
-          <object-type name="COLUMN" enabled="false" />
           <object-type name="INDEX" enabled="true" />
           <object-type name="CONSTRAINT" enabled="true" />
           <object-type name="DATASET TRIGGER" enabled="true" />
@@ -316,8 +309,6 @@
           <object-type name="FUNCTION" enabled="true" />
           <object-type name="PACKAGE" enabled="true" />
           <object-type name="TYPE" enabled="true" />
-          <object-type name="TYPE ATTRIBUTE" enabled="false" />
-          <object-type name="ARGUMENT" enabled="false" />
           <object-type name="DIMENSION" enabled="false" />
           <object-type name="CLUSTER" enabled="false" />
           <object-type name="DBLINK" enabled="true" />

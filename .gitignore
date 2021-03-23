@@ -1,0 +1,24 @@
+# __pycache__
+__pycache__/
+cogs/__pycache__/
+
+# Jetbrains IDEs
+.idea/
+
+# Not ready to be deployed
+cogs - REWRITE/
+website/
+
+# Not relevant
+ping_plot.png
+cogs/discord_bot_log.log
+
+# Private
+cogs/community_bot_info.ini
+cogs/json files/user_info.json
+Procfile
+reet.png
+
+# Not ready to be deployed
+community_bot - REWRITE.py
+setup.py
