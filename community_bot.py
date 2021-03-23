@@ -7,14 +7,18 @@ from discord.ext import commands  # Imports discord extensions.
 from discord_slash import SlashCommand, SlashContext
 import json
 from cogs.constants import *
+from cogs.utility import censor
 
-guilds = [COMMUNITY_ID]
 # NOTE: The below code verifies the "client".
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='$', description='- shows this message', intents=intents)
-slash = SlashCommand(bot, auto_register=True)
-
+slash = SlashCommand(bot, sync_commands=True)
 PATH_TO_VARIABLES_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files\variables.json'
+
+with open(r"C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\COMMUNITY_TOKEN.txt") as read_token:
+    TOKEN = read_token.read().strip()
+
+print(f"Connecting through bot token {censor(TOKEN, num_letter_censor=6, mode='Normal', words_to_censor=None)}")
 
 
 def is_guild_owner():
@@ -80,18 +84,16 @@ async def pythonlogo(ctx):
     # TODO: You know, ADD THE DANG THING
 
 
-@slash.slash(name="test", description="Plz", guild_ids=guilds)
-async def _ping(ctx: SlashContext):
-    await ctx.send(3, content="Nya ha ha, only you can see this", hidden=True)
-
-
 # @bot.command()
 # async def commands(ctx, request):
 #     if request == 'load':
 #         await ctx.send('```Load\nThis command loads a cog. \n\nExample: (pref)load cogs.(cog name)')
 
 # for filename in os.listdir('./cogs'): if filename.endswith('.py'): bot.load_extension(f"cogs.{filename[:-3]}")
-pre_loaded_extensions = ['cogs.BuiltInCogs']
+pre_loaded_extensions = [
+    'cogs.BuiltInCogs',
+    'cogs.core.slash'
+]
 
 if __name__ == '__main__':
     for ext in pre_loaded_extensions:
@@ -101,4 +103,3 @@ if __name__ == '__main__':
     print('Finished loading all cogs. Preparing to run bot...')
     # NOTE: runs this program. VERY IMPORTANT FOR ME........
     bot.run(TOKEN)
-    # bot.run('NzE5MTk1ODQ2MjYwMDMxNTM5.Xv-9eQ.xIPU-AdK5U-zfW_v_wQ-SrIztoY') # NOTE Aidan's BOT
