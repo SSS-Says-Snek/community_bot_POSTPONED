@@ -1,1 +1,0 @@
-worker: sh -c 'cd Community Bot/ && exec community_bot.py'
