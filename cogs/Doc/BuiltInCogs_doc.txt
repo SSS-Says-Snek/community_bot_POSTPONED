@@ -1,0 +1,55 @@
+This is a documentation about BuiltInCogs.py. Because BuiltInCogs is builtin, this will never be finished (unless I stop working on it)
+Also, I will try to use the same format Python uses to define THEIR module, but I usually do not know what the doc is even talking about.
+Without further ado, here is the BuiltInCogs doc!
+
+HELP ON BUILT IN MODULE BuiltInCogs:
+
+NAME
+    BuiltInCogs.py
+
+DESCRIPTION
+    BuiltInCogs.py is the Built In Cog, as seen above. It is automatically loaded when you run community_bot.py.
+    Without it, the bot would be severely crippled, and there would be no functionality.
+    BuiltInCogs.py is made up of SEVEN different classes, which are:
+        - DebugAndEvents. This class contains all the events for the bot, as well as some commands to debug the bot.
+        - OwnerOnly. This class can only be used by the server/guild owner. Pretty self-explanatory.
+        - FunCommands. This  class is mostly used by P E A S E N T S, which contains several fun commands.
+        - MathCommands. This class contains some basic arithmetic operations, and if you want more cmds, import MoreMathCommands.
+        - ModeratorCommands. This class contains some very useful commands for the moderators of your discord server.
+        - MiscellaneousCommands. This class contains miscellaneous commands. WOW!
+        - Tasks. This class has some core tasks, like the audit log updater, as well as some tasks-related functions.
+
+    I won't go into details about this, because then it would be way too long, to find out more, go to BuiltInCogs_doc.txt.
+    made with ♥ with discord.py.
+
+FUNCTIONS:
+    def is_guild_member()
+    Finds the owner of the server
+        def predicate(ctx):
+            actually returns if the message author, and the guild owner are the same
+CLASSES
+    NOT AVAILABLE.
+
+    class DebugAndEvents:
+        This is where all the events are stored, like on_message() and on_member_join(). There are also some commands in here that help me
+        debug some key aspects (although there is only one so far I use a lot). This is also where the security aspect of the bot goes, like
+        anti-corruption and anti-vulgar-language (?). Without this, there would be no automod, no pings, and no automod.
+        P.S: There is a task in this command, BUT DO I CARE?
+
+    class OwnerOnly:
+        COMING SOON!
+
+    class FunCommands:
+        COMING SOON!
+
+    class MathCommands:
+        COMING SOON!
+
+    class ModeratorCommands:
+        COMING SOON!
+
+    class MiscellaneousCommands:
+        COMING SOON!
+
+    class Tasks:
+        COMING SOON!

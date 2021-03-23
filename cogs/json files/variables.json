@@ -1,0 +1,8 @@
+{
+    "debug": true,
+    "mode": "debug",
+    "shutdown": false,
+    "beta_mode": false,
+    "suppress_guild_owner_commands": false,
+    "suppress_infraction_punishments": true
+}

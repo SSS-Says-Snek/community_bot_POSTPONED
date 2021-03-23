@@ -1,0 +1,34 @@
+Community Bot
+
+---- cogs                                                                                       FOLDER
+-------- __pycache__ (not important)                                                            FOLDER
+-------- Doc                                                                                    FOLDER
+-------- img                                                                                    FOLDER
+-------- json files                                                                             FOLDER
+-------- community_bot_info.ini
+-------- BuiltInCogs.py (IMPORTANT)
+-------- ExtraCommands.py
+-------- ExtraFunCommands.py
+-------- MemberPermCommands.py
+-------- MoreMathCommands.py
+-------- code_dump.txt
+-------- community_bot_changelog.txt
+-------- structure.txt
+-------- todo_things.txt
+
+---- cogs - REWRITE (Postponed)                                                                 FOLDER
+-------- A lot of things that are in cogs\
+
+---- Misc things for Community Bot                                                              FOLDER
+-------- Alarm Sound 1 (CUT).mp3
+-------- Alarm Sound 1.mp3
+-------- Alarm Sound 2.mp3
+-------- Notif Sound 1 (OLD).mp3
+-------- Notif Sound 1.mp3
+
+---- utility (EMPTY)                                                                            FOLDER
+---- README.md
+---- community_bot_REWRITE.py (Postponed)
+---- community_bot.py
+---- setup.sql
+---- requirements.txt

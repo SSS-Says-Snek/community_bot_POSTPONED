@@ -1,0 +1,320 @@
+NOTE: There is no changelogs for the above updates because the only available source is discord, and that's just sad.
+
+----------------------------------------------------- DISCORD BOT CHANGELOGS -------------------------------------------
+v0.4.0 changelogs:
+- Different client owned by Mr. Code
+- maybe Beta Mode?
+- NEW commands
+- FIX commands
+- deprecated BfbCogs.py, which will turn into ExtraFunCommands.py
+- Tiny Bug Fixes, which includes:
+    - Proper TimeOut support
+STATUS: IMPLEMENTED
+
+v0.4.1 changelogs:
+- Performance Enhancements, which includes:
+    - Proper Status for Beta Mode and Status combinations
+    - Proper Errors for load_cog and other related commands
+    - Better and better-looking text from $speech_recog_guess
+- A NEW COMMAND, $changelogs, which:
+    - gives a .txt file that shows this txt file
+- logging module inside BuiltInCogs.py for some logging (Duh.)
+STATUS: IMPLEMENTED
+
+0.4.2 will include:
+- Performance Enhancements, which includes:
+    - NOT SPECIFIED
+- Deleted bot_info.json. Wasn't doing much...
+- Bug Fixes
+- WORKING Emergency Cog Reload. Whoops.
+- Add an alarm sound whenever someone uses `$emergency_lockdown`
+STATUS: Deprecated
+
+0.4.3 will include:
+- Updated rules. (Yep. Constantly changing)
+- MORE STUFF (I don't know)
+- Git VCS to restore data, which will:
+    - Make restoring data easier, though you can already do this
+    - MAJOR THING IS TO KEEP TRACK OF VERSIONS
+STATUS: IMPLEMENTED.
+
+MajorUpdate: BELOW IS v0.5.0, A.K.A `the START of alpha mode!`
+v0.5.0 will include:
+- COMPLETELY reworked $help commands, which includes:
+    - Proper Help text when examined further!!
+    - Add Help for Categories
+    - Updated (and less confusion) brief help commands!
+- NEW COMMANDS, like:
+    - $message_user, if/when someone bans you, and the bot can send your message
+    - $version, which outputs the version of the bot. (DEPRECATED IN FAVOR OF $bot)
+    - $bot, which has commands INSIDE the command :o
+- NEW UPDATES FOR COGS, which includes:
+    - Crazy new math functions, like $factorial and SO much more!
+- PERFORMANCE ENHANCEMENTS, like:
+    - Add variables to commonly used stuff
+    - Change $emergency_lockdown's `print` to stderr instead of stdout
+- BUG FIXES, which includes:
+    - YAY! Correct grammar!
+    - Fixed $old_draw. You guys didn't even notice!
+- NEW: Sound effects for (most) occasions, e.g. When Bot is ready, when there is error, etc.
+- NEW: All modules will have a docstring. Yay!
+- NEW: ADDED DOCS FOR BuiltInCogs??? Haha JK, but we did add it. It's just gonna take like 5 decades to finish.
+- MODIFIED: Updated discord.py with the latest version (1.5.0)
+- MODIFIED: Change logging preference from ERROR to WARNING
+- MODIFIED: Now I can see when people join voice channels, when they are online, etc with logging.INFO
+- MODIFIED: I got rid of those pesky red warning buttons and changed is_guild_owner into a function outside of the class
+STATUS: IMPLEMENTED
+
+============================================== FROM NOW ON, FUTURE RELEASES WILL HAVE DATES ================================================
+
+v0.5.1.b1 changelogs:
+- NEW: infractions.json now TRACKS YOUR INFRACTIONS. A JSON decoder slowly scans the text dictionary for your discord ID, and when the decoder finds it,
+       it sees the number of infractions you currently have, and sends the number of infractions to you, updates the infractions, and *will*
+       punish you according to the infractions. BASICALLY, when you say no-no word, nuclear missiles get fired at you :). No worries
+- MODIFIED: For all you nerds, I have modified the try-except-pass block in $emergency_lockdown, and replaced it with contextlib.suppress()
+
+- ** URGENT NEWS ** A few weeks back, I have witnessed my first Discord raid. Now that I'm fully aware of the damage raids can do,
+  I am going to ramp up anti-raid tools. As a result, you might see your roles be ELIMINATED. That's totally fine, as I maybe (?) have your
+  roles stored somewhere. Just saying, don't panic. (I know that raids often happen with bots, and there aren't anyone who's really capable
+  of building bots in this server except for me, so....)
+STATUS: IMPLEMENTED
+
+DATE OF PLANNING: Sun Nov 15, 2020, at 5:34 PM
+DATE RELEASED: Mon Nov 16, 2020, at 12:33 AM
+
+
+v0.5.1.b2 changelogs:
+- v0.5.1.b1 stuff, AND
+- NEW: And now, introducing the BRAND. NEW. community_bot.py. COMMAND.... It's....... $pythonlogo. Noice (deprecated tho now)
+- MEGA MODIFIED: instead of infractions.json, there is now .... USER_INFO.JSON!!!!! Now, I can store your roles, AS WELL as your infractions!
+- MODIFIED: the Math cog has been renamed to MathCommands. It just suits it.
+- Some performance enhancements (wait really)
+
+- ** MORE URGENT NEWS ** Welp, I feel like I just got betrayed. Less than ? hours ago, a friend of Aidan has deleted our some of our oldest
+  channels, like #normal-talk and #nsfw (?). There might be some more, but I'm just bummed that we lost over half a year's worth of chatting.
+  Server Nuking is also a very serious topic, and I'm not sure if I should report him to the Discord Trust & Safety. However, we have not yet
+  established whether someone hacked into his account, so I will postpone the thought. Also, please don't attack Aidan for having a friend like
+  that; it may be a misunderstanding. Stay cool, and I'll see you every day from 7:30 AM to 10 PM (?)
+STATUS: IMPLEMENTED
+
+DATE OF PLANNING: Mon Nov 16, 2020, at 11:04 PM
+DATE LAST MODIFIED: Wed Nov 18, 2020, at 11:24 PM
+DATE RELEASED: Thurs Nov 19, 2020, at 8:00 PM
+
+
+v0.5.1 changelogs:
+- v0.5.b1 things
+- v0.5.b2 things
+- NEW: todo_things.txt now helps me focus on stuff. Yay! Expect to see an increase in bot deployment
+- Bugfix: This is like the third bug, but fixed the automod message it sends to me
+- Wow, I'm moving very slow. It took me 1 month to go from 0.5.0 to 0.5.1. I'm going to make things for v0.6.0 now, but things like v0.5.2 are
+  still going to be deployed. I'm just going to mark the big features as part of 0.6.0
+STATUS: IMPLEMENTED
+
+DATE OF PLANNING: Sat Nov 21, 2020, at 6:25 PM
+DATE LAST MODIFIED: Tues Nov 24, 2020, at 11:33 PM
+DATE RELEASED: Wed Dec 2, 2020, at 4:38 PM
+
+
+===================================================== We're just gonna skip some stuff. ====================================================
+
+
+v0.5.5.b1 changelogs:
+- NEW: Added... AUDIT LOG FEATURE (automod improved). YAY!
+- NEW: Added role updates????????????????????????????????????????
+- NEW: Will Brandon add infraction punishments????? Yes
+- MODIFIED: logging parser has been updated (yay?)
+- MODIFIED: Updated discord.py to the LATEST VERSION, 1.5.1
+- Some other stuff that I will update over time
+STATUS: IMPLEMENTED (in version 0.5.5, but never announced)
+
+DATE OF PLANNING: Sat Nov 28, 2020, at 11:13 PM
+DATE LAST MODIFIED: Sun Dec 20, 2020, at 10:42 PM
+DATE OF PLANNED RELEASE: NEVER, included in v0.5.5
+
+
+v0.5.5 changelogs:
+- v0.5.5.b1 stuff, AND
+- NEW: WHOA. WHOA. WHOA!!!!!!!!1!1111111!11!!!11!111111?111!11!!!! Brandon *actually* fixed $set_debug?!?!??!!?!?! yay for me...
+- NEW (or MODIFIED): Updated community bot versions to reflect PEP-0440's versions. In case you don't know that,
+    - .rcN means: release candidate number N
+    - .devN means: development candidate number N
+    - .aN means: alpha version N
+    - .bN means: beta version N
+    - .cN means: candidate number N
+    - MAJOR.MINOR.MICRO versions: Yeah we already use that
+    - .postN: post-fix number N
+- ACTUALLY NEW: $solve now solves YOUR BIG BRAIN MATH??!??!?!?!?! Supports the following:
+    - Polynomials (whoa)
+    - Systems of equations (whoa)
+    - Calculus (nope actually it doesn't support it but maybe in the future...)
+    - Derivatives (nope I don't even know what a derivative is)
+    - Substitution (pretty easy to implement by I'm too lazy right now)
+- MODIFIED: $speech_recog_guess will soon be deprecated, as 1. I can't hack into your computer, and 2. It's not that accurate
+- BUGFIX: It should (?) stop sending me error messages when I don't have internet?
+    - haha jk it still sends me THOSE STUPID ERRORS
+- Also, I want to start releasing versions maybe... once or twice a month? As more people use Discord and more people use discord.py,
+  discord.py would keep on expanding, which means MORE COOL FEATURES ARE COMING!!! I'm still pretty focused on tasks, data storage,
+  and all that good junk.
+- CELEBRATE 100,000 CHARACTERS OF CODE! Yay that's a lot
+STATUS: IMPLEMENTED
+
+DATE OF PLANNING: Sun Dec 20, 2020, at 10:42:01 PM
+DATE LAST MODIFIED: Sun Dec 24, 2020, at 10:14 PM
+DATE OF RELEASE: CHRISTMAS DAY, Dec 25, 2020, at 5:24 PM
+
+
+========================================================== AH YES, MORE SKIPPING ===========================================================
+
+
+v0.6.0.a1 changelogs:
+- MODIFIED (or NEW): new features have been added to $solve, the following of which includes:
+    - support for substitution
+    - support for evaluation
+    - SQUASHED a bug. Absolutely DECIMATED. DESTROYED. TERMINATED.
+- MODIFIED: MemberPermCommands.py might be added to the custom loaded built-in cogs, so YAY?
+- DEPRECATION: $pythonlogo has is scheduled to be deprecated at around v0.6.5, so BYE BYE
+- DEPRECATION: $speech_recog_guess is scheduled to be deprecated at around v0.6.0. EEK
+- MAJOR CHANGE: I am right now learning SQL, so the data format I use RIGHT NOW (JSON), might be ditched in favor of SQL. Might not
+                mean a lot to you, but means a lot to me! Just kidding, the infraction punishment system will be off for 20 days while I
+                fail miserably at SQL.
+STATUS: IMPLEMENTED
+DATE OF PLANNING: Sat Dec 26, 2020, at 11:24 PM
+DATE LAST MODIFIED: Sun Jan 4, 2020, at 5:35 PM
+DATE OF RELEASE: Jan 4, 2021, at 7:30 PM
+
+
+v0.6.0.b1 changelogs:
+- v0.6.0.a1 stuff, and...
+- NEW: ROTATING BOT STATUSES?!?! Now, the bot will refresh its status once every minute. Some are cool I guess...
+- NEW: bot_info.json AND setup.sql. bot_info.json (which was deleted in v0.4.3) is now BACK AGAIN to store the bot statuses, while
+       setup.sql handles the *NEW* database that will be taking place of JSON.
+- NEW: *Basic* frame for SQL database. Now, user_info.json has partially retired, with the infraction system being completely down.
+       Meanwhile, setup.sql gets a lot of attention, with the infraction system being on.
+- NEW: discord_bot_log.log now stores what happened today
+- NEW: $get_user now gets a user... wonder what I got the name from...
+- MODIFIED: Isaac's infractions now correctly display
+            9928359235305732598735632570356305365037650325603559238750012983576230952736509213659023650925907562756029096. Wow, that's ...
+            NOT a lot.
+- MODIFIED: Finally did that refactor task thing
+- MODIFIED: Tasks should *maybe* now handle internet errors, so... that's ONE step in the right direction!
+- MODIFIED: For message_user in MemberPermCommands.py, you can now input the user ID and it would message the user (cough cough anna)
+- MODIFIED: Number of infraction punishments has increased. Now, if you get 15 infractions, you will not be able to use the bot.
+- BUGFIX: Apparently, there was ANOTHER bug in $solve, so I SQUASHED IT. Absolutely DECIMATED IT.
+- DEPRECATION: Getting ever so closer...
+STATUS: IMPLEMENTED
+
+DATE OF PLANNING: Sun Jan 3, 2020, at 11:33 PM
+DATE LAST MODIFIED: Fri Jan 8, 2020, at 8:40 AM
+DATE OF RELEASE: Fri Jan 8, 2020, at 9:09 AM
+
+
+MajorUpdate: Below is... v0.6.0??? Yea it's pretty beeg
+v0.6.0 changelogs:
+- v0.6.0.b1 stuff, and...
+- NEW: $solve now supports fraction substitution????? :o
+- NEW: now there's utility.py to help me do... utility stuff?
+- NEW: Community Bot now sends a message at 9:56 PM showing the highlights of today's log file. Noice?
+- NEW: task ping_update checks the bot latency and posts it in #spam
+    - yeah, sometimes it doesn't work
+- NEW: $repeat_bot now mimics what you said. N O I C E
+- NEW: Discord now has @someone. https://www.youtube.com/watch?v=BeG5FqTpl9U
+- MODIFIED: on_disconnect() now looks prettier, as it is now piped via sys.stderr (basically nerdy stuff)
+- MODIFIED: M O R E  bot statuses. You can never run out of them. The bot's watching your every move, every. Single. Move.
+- MODIFIED: MemberPermCommands has been IMPROVED??? Yeah, cuz of Will.
+- MODIFIED: on_ready() also looks prettier. *shrugs* ok
+- MODIFIED: $solve getting more attention, cuz I worked real hard on it... SUBSTITUTION NOW SUPPORTS IMAGINARY NUMBERS???
+- MODIFIED: Tasks now support 7:30???? Now the tasks actually work at 7:30
+- HEADS UP: Yay I have VirtualBox. Doesn't really matter, just makes testing stuff easier
+- DEPRECATION: Bai Bai commands! We will miss you dearly... maybe.
+
+v0.6.0.post1:
+- ping update will now be activated once per hour
+STATUS: IMPLEMENTED
+
+DATE OF PLANNING: Sat Jan 9, 2021, at 11:21 AM
+DATE LAST MODIFIED: Tues Jan 26, 2021, at 9:34 PM
+DATE OF RELEASE: Tues Jan 26, 2021, at 9:45 PM
+
+
+v0.6.5 changelogs:
+- NEW: $archive??? A MAJOR scientific BREAKTHROUGH that makes me not-so-worried if an important channel has been deleted. Options are:
+    - *oldest* to sort messages by oldest
+    - *mention* to mention people who sent the message
+    - *compact* to make it MEGA COMPACT (better for a lot of messages)
+    - *suppress pings* to make it suppress pings
+    - *before* and *after* to filter the messages by date (in UTC of course, UTC is "default")
+- NEW: constants.py now STORES MY CONSTANTS??? Haha you can't steal my passwords now...
+- MODIFIED: More statuses, yay...
+- MODIFIED: wow, $solve still getting new updates... "evaluate" now uses N instead of parse_expr, so... that's nice
+- MODIFIED: Isaac's infractions has been lowered down to 158, since his mom was the one who deleted the channels.
+            (P.S: Isaac, it's not OK to scam people on Roblox, please stop...)
+
+v0.6.5.post1:
+- Oh yeah, forgot that the ping graph is now *pretty* noice                         wait hang on i didnt even mention the ping graph whoops
+STATUS: IMPLEMENTED
+
+DATE OF PLANNING: Tues Jan 26, 2021, at 10:03 PM
+DATE LAST MODIFIED: Wed Feb 10, 2021, at 2:00 PM
+DATE OF RELEASE: Wed Feb 10, 2021, at 2:17 PM
+
+
+v0.6.9 (hmm) changelogs:
+- Just saying, this is a minor changelog
+- Bug Fixes :D (It's been a while since we had some)
+- WHAT?????? Brandon's gonna make the bot prettier.... Noice
+- Okay that's it
+STATUS: IMPLEMENTED
+
+DATE OF PLANNING: Wed Feb 10, 2021, at 2:18 PM
+DATE LAST MODIFIED: Sun Feb 14, 2021, at 11:30 PM
+DATE OF RELEASE: Mon Feb 15, 2021, at 2:40 PM
+
+
+# MajorUpdate ayy it's now v0.7.0. WOOHOO!
+v0.7.0 changelogs:
+- NEW/MODIFIED: $get_user (or $whois) is *pretty* :o whoa... also contains more info and stuff
+                It just contains so much stuff
+- NEW/MODIFIED: And so is $bot -i. Dang snek, you be really adding them pretty things
+- NEW/MODIFIED: Okay, now ... the shutdown thingy command... is pretty. VERY NOICE
+- NEW/MODIFIED: THE BIGGEST EVENT IN THE 21ST CENTURY IS... $help getting a VANITY FIX!! Gone is that ugly ... thing, but it is REPLACED
+                by the highest-tech embed we can provide! ($help may or may not work, depending on if you use linux, debian, android,
+                chrome OS, Macs, Windows, or IOS. If you feel like your $help has not satisfied you, contact 1-800-800-8000 to waste 10
+                minutes of your time. $help is made up of Sulfur Hexaflouride, Sodium Nitrate Oxide, and Unobtanium 4.2.4, so no refunds.
+                TEEHEE)
+- NEW: $wolfram now... lets you interact with wolfram alpha?
+- MODIFIED: I mean now I got comments in my code. Cool
+- MODIFIED: New constants in constants.py :thinking:
+- MODIFIED: Ayy the bot now has the ability to NOT butcher your usernames :D
+- MODIFIED/DEPRECATED: Bye members table, you were good, but not good enough. You will be replaced by... members table!!! (but updated)
+- DEPRECATED: Goodbye roles_update, you were.... honestly you were a hot pile of garbage.
+- DEPRECATED: FYI, ping_update, you were also pretty trashy, so you die too! :D
+- MODIFIED: Added new bugs, maybe 27 of them? It's fine tho, I fixed 2 bugs.
+- MODIFIED: Nice ping graph still doesn't work, it's bound to work... in a few years.
+            LETS GO IT WORKS!!!!!!!!!!!!!!!!!!!!!!!!!!
+- MODIFIED: Pretty sure I added the *mode* variable, and stopped using the debug.. (just kidding, but I DID actually use mode for
+                                                                                    on_command_error())
+- HEADS UP: Hehe boi, $solve will soon be converted from ugliness to niceness
+STATUS: IMPLEMENTED
+
+DATE OF PLANNING: Sun Feb 14, 2021, at 11:32 PM
+DATE LAST MODIFIED: Mon Mar 8, 2021, at 10:11 PM
+DATE OF RELEASE: Tues Mar 9, 2021, at 11:?? AM
+
+
+v0.7.1 changelogs:
+- NEW/MODIFIED: Whoa Whoa Whoa. You can now input Username+Discriminator for $whois??? Nice addition...
+- NEW/MODIFIED/SNEAK PEEK: Yo, now SLASH COMMANDS work... No need to $help $help $help when you forgot a command :)
+                           (still not added yet tho)
+- NEW: Because of the slash commands, there's now a new file, slash.py! You know what it does C:
+- MODIFIED: Prepare some files to refactor (like cogs.core.events, cogs.core.tasks, etc)
+STATUS: PENDING
+
+DATE OF PLANNING: Tues Mar 9, 2021, at 11:17 PM
+DATE LAST MODIFIED: Tues Mar 9, 2021, at 11:18 PM
+DATE OF PLANNED RELEASE: Mon Mar 22, at 8:?? AM
+
+
+
+
+

@@ -1,0 +1,120 @@
+==================================================== HERE TO HELP ME THINK =================================================================
+jiggle physics
+
+import discord
+from discord.ext import commands, task
+
+... insert code here
+
+THIS THING INSIDE A CLASS
+
+if not suppress_infraction_punishments:
+
+                    with open(PATH_TO_USER_INFO_JSON) as read_json_file:
+                        all_infractions = json.load(read_json_file)
+                        deserialized_infractions = all_infractions['overall infractions']
+
+                    if not deserialized_infractions:
+                        dict_of_writing_to_json = {}
+
+                        for member in message.guild.members:
+                            member_id = str(member.id)
+                            temp_dict_of_member_id_and_no_infraction = {member_id: 0}
+                            dict_of_writing_to_json.update(temp_dict_of_member_id_and_no_infraction)
+
+                        all_infractions['overall infractions'] = dict_of_writing_to_json
+
+                        with open(PATH_TO_USER_INFO_JSON, 'w') as write_json_file:
+                            json.dump(all_infractions, write_json_file, indent=4)
+
+                        with open(PATH_TO_USER_INFO_JSON) as read_json_file:
+                            all_infractions_refresh = json.load(read_json_file)
+                            deserialized_infractions_refresh = all_infractions_refresh['overall infractions']
+
+                        await author.send('You have 1 infraction')
+                        deserialized_infractions_refresh[str(message.author.id)] += 1
+                        all_infractions_refresh['overall infractions'] = deserialized_infractions_refresh
+
+                        with open(PATH_TO_USER_INFO_JSON, 'w') as write_json_file:
+                            json.dump(deserialized_infractions_refresh, write_json_file, indent=4)
+
+                    else:
+
+                        with open(PATH_TO_USER_INFO_JSON) as read_json_file:
+                            all_infractions = json.load(read_json_file)
+                            deserialized_infractions = all_infractions['overall infractions']
+
+                        deserialized_infractions[str(message.author.id)] += 1
+                        all_infractions['overall infractions'] = deserialized_infractions
+
+                        with open(PATH_TO_USER_INFO_JSON, 'w') as write_json_file:
+                            json.dump(all_infractions, write_json_file, indent=4)
+
+                    with open(PATH_TO_USER_INFO_JSON) as read_json_file:
+                        deserialized_infractions = json.load(read_json_file)['overall infractions']
+
+                    num_infractions = deserialized_infractions[str(message.author.id)]
+                    member_object = community_server.get_member(message.author.id)
+                    banned = discord.utils.get(community_server.roles, id=695698885615812638)
+
+                    with open(PATH_TO_USER_INFO_JSON) as read_json_file:
+                        all_user_info = json.load(read_json_file)
+                        roles = all_user_info["roles"][str(message.author.id)]
+
+                    for role in member_object.roles:
+                        with contextlib.suppress():
+                            if role.name != '@everyone':
+                                await member_object.remove_roles(role)
+                    await member_object.add_roles(banned)
+                    # self.roles_update.cancel()
+                    task_cog.roles_update.cancel()
+
+def remove_string(word, string_to_remove):
+    """removes the part where the string is to be found"""
+    if string_to_remove in word:
+        return word[:word.find(string_to_remove)] + word[int(word.find(string_to_remove) + len(string_to_remove)):]
+    else:
+
+
+        return ''
+
+while True:
+	user_input = input('WHAT DO YOU WANT TO SAY TO DA OP BOT? ')
+	bot_output = chatbot.get_response(user_input)
+	print(f"THE OP BOT SAID: {bot_output}")
+
+
+try:
+                try:
+                    user = await self.bot.fetch_user(int(user_context))
+                except discord.errors.NotFound:
+                    await ctx.send(r'**`ERROR: `** BRUH YOU DUMEHEAD, that user does \*NOT\* exist. Get lost, you useless entity')
+            except ValueError:
+                try:
+                    user = await self.bot.fetch_user(user_context[3:-1])
+                except discord.errors.NotFound:
+                    await ctx.send(r'**`ERROR: `** BRUH YOU DUMEHEAD, that user does \*NOT\* exist. Get lost, you useless entity')
+            if is_member(ctx.guild, user):
+                await ctx.send('Yes in')
+                user = self.bot.get_member()
+            else:
+                await ctx.send('No in')
+
+# for channel in community_server.text_channels:
+                #     arrow_obj = arrow.utcnow()
+                #     arrow_obj_30_days = arrow_obj.shift(days=-30).datetime
+                #     arrow_obj_30_days = arrow_obj_30_days.replace(tzinfo=None)
+                #     messages = await channel.history(after=arrow_obj_30_days, limit=None).flatten()
+                #     user_messages = [message for message in messages if message.author.id == member.id]
+                #     print(repr(num_messages))
+                #     num_messages += len(user_messages)
+                #     # async for message in channel.history(limit=None):
+                #     #     if message.author.id == member.id:
+                #     #         messages += 1
+
+    if size < 1e03:
+        return f"{int(size * dec) / dec} B"
+    if size < 1e06:
+        return f"{int(size * 1e-03 * dec) / dec} KB"
+    if size < 1e09:
+        return f"{int(size * 1e-06 * dec) / dec} MB"
