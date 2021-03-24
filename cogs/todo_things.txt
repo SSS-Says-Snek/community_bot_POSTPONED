@@ -10,6 +10,7 @@
 - I dunno, adding some images for embeds? PRIORITY: 7.5/10 MILESTONE v7.4
 - REFACTOR: that long 700 character line thing made by Avaxar. MILESTONE v1.0
 - Remember to work on da $embed_solve. MILESTONE v0.7.2
+- Also find URL for exclamation point (Preferably yellow)
 
 =============================================================== BOT THINGS:  ===============================================================
 - ALWAYS need those performance enhancements (5.6/10) FEATURE REQUEST

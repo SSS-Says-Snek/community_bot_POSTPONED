@@ -817,29 +817,53 @@ class OwnerOnly(commands.Cog, name='Owner Only'):
             await ctx.send(BOT_SHUTDOWN_MESSAGE)
 
     @brandon_only()
-    @commands.command(help='COMING SOON!', brief='- runs a command on Brandon\'s computer. ONLY BDON CAN')
+    @commands.command(help='COMING SOON!', brief='- runs a command on Owner\'s computer. ONLY OWNER CAN')
     async def run_process(self, ctx, *, task_to_run: str):
         logging.log(NOTIFICATION, 'running command run_process')
         si = subprocess.STARTUPINFO()  # um excuse me WHAT DOES THIS MEAN
         si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        user = self.bot.get_user(ctx.author.id)
+        verification_embed = discord.Embed(color=discord.Color.gold(), title="Verify identity",
+                                           description="Enter password to run command")
+        verification_failed_embed = discord.Embed(color=discord.Color.red(), title="Identity Verify failed",
+                                                  description="Wrong password. Your command will be ignored")
+        verification_succeeded_embed = discord.Embed(color=discord.Color.green(), title="Identity Verify succeeded",
+                                                     description="Verify identity suceeded. Proceeding to execute process...")
+        verified = None
+        await user.send(embed=verification_embed)
         try:
-            subprocess_object_returned = subprocess.run(task_to_run, capture_output=True, startupinfo=si, timeout=10)
-        except FileNotFoundError:
-            await ctx.send(f"**`COUGH COUGH`** Y U So Dumb, **`{task_to_run}`** isn't even a valid command on Windows 10!")
-        except subprocess.TimeoutExpired:
-            await ctx.send(f"**`EXCUSE ME`** Your process ({task_to_run}) took MORE THAN 10 SECONDS?!?!?!?!?!?! So, we just canceled it...")
+            password = await self.bot.wait_for("message", timeout=20)
+        except asyncio.TimeoutError:
+            verification_failed_embed.description = "Time out. Your command will be ignored"
+            await user.send(embed=verification_failed_embed)
         else:
-            if not subprocess_object_returned.stderr.decode('utf-8'):
-                subprocess_object_returned.stderr = b'No Error'
-            if not subprocess_object_returned.stdout.decode('utf-8'):
-                subprocess_object_returned.stdout = b'No Output'
-            if len(subprocess_object_returned.stdout.decode('utf-8').strip()) > 2000:
-                subprocess_object_returned.stdout = f"{subprocess_object_returned.stdout.decode('utf-8')[:1500]}...".encode('utf-8')
-            await ctx.send(f"**`YAY`** You actually know what you are doing. Here's what running **`{task_to_run}`** did:\n"
-                           f"**`ARGUMENTS:`** {subprocess_object_returned.args}"
-                           f"**`OUTPUT:`** {subprocess_object_returned.stdout.decode('utf-8').strip()}\n"
-                           f"**`ERROR (if there are any):`** {subprocess_object_returned.stderr.decode('utf-8').strip()}\n"
-                           f"**`RETURN CODE:`** {str(subprocess_object_returned.returncode)}")
+            if str(password.content).strip() == SECRET_PASSWORD:
+                user.send(embed=verification_succeeded_embed)
+                verified = True
+            else:
+                await user.send(embed=verification_failed_embed)
+                verified = False
+
+        if verified:
+            try:
+                subprocess_object_returned = subprocess.run(task_to_run, capture_output=True, startupinfo=si, timeout=10)
+            except FileNotFoundError:
+                await ctx.send(f"**`COUGH COUGH`** Y U So Dumb, **`{task_to_run}`** isn't even a valid command on Windows 10!")
+            except subprocess.TimeoutExpired:
+                await ctx.send(f"**`EXCUSE ME`** Your process ({task_to_run}) took MORE THAN 10 SECONDS?!?!?!?!?!?! "
+                               f"So, we just canceled it...")
+            else:
+                if not subprocess_object_returned.stderr.decode('utf-8'):
+                    subprocess_object_returned.stderr = b'No Error'
+                if not subprocess_object_returned.stdout.decode('utf-8'):
+                    subprocess_object_returned.stdout = b'No Output'
+                if len(subprocess_object_returned.stdout.decode('utf-8').strip()) > 2000:
+                    subprocess_object_returned.stdout = f"{subprocess_object_returned.stdout.decode('utf-8')[:1500]}...".encode('utf-8')
+                await ctx.send(f"**`YAY`** You actually know what you are doing. Here's what running **`{task_to_run}`** did:\n"
+                               f"**`ARGUMENTS:`** {subprocess_object_returned.args}"
+                               f"**`OUTPUT:`** {subprocess_object_returned.stdout.decode('utf-8').strip()}\n"
+                               f"**`ERROR (if there are any):`** {subprocess_object_returned.stderr.decode('utf-8').strip()}\n"
+                               f"**`RETURN CODE:`** {str(subprocess_object_returned.returncode)}")
 
     @server_owner_or_bot_owner()
     @commands.command(help='COMING SOON!', brief='- archives a channel')
@@ -924,7 +948,7 @@ class FunCommands(commands.Cog, name='Fun Commands'):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['8ball', 'eightball'],
+    @commands.command(aliases=['8ball'],
                       help=f"{DISCORD_HYPHEN_SEPARATOR} 8BALL {DISCORD_HYPHEN_SEPARATOR}\n"
                            f"This fun command is used to pick a random answer for your question you asked."
                            f"It will answer either yes, no, or maybe (it chooses yes the most)\n"
@@ -933,7 +957,7 @@ class FunCommands(commands.Cog, name='Fun Commands'):
                            f"**`INPUT:`** $8ball (question)\n"
                            f"**`OUTPUT:`** Question:(question). Answer:(answer)",
                       brief='- fun command that possesses the power of 8')
-    async def _8ball(self, ctx, *, question):
+    async def eightball(self, ctx, *, question):
         """- fun command that possesses the power of 8"""
         if not shutdown:
             answers = ['It is certain.', 'It is decidedly so.',
@@ -1399,6 +1423,10 @@ class ModeratorCommands(commands.Cog, name='Moderator Commands'):
     @commands.command(help='COMING SOON!', brief='- runs SQL query... I think')
     @commands.is_owner()
     async def sql_query(self, ctx):
+        sql_embed = discord.Embed(title="Enter SQL Query",
+                                  description=f"Please type out your SQL query, {ctx.author.mention}\n"
+                                              f"(MySQL is used in this case)")
+        # NOTE: Find color for MySQL Workbench
         await ctx.send(f"**`SQL TIME`** Please type your SQL query, {ctx.author.mention}")
 
         def check(author_check):
@@ -1415,6 +1443,7 @@ class ModeratorCommands(commands.Cog, name='Moderator Commands'):
             try:
                 list_of_outputs = cursor.fetchall()
             except errors.InterfaceError:
+                # NOTE: Find proper exception
                 await ctx.send("HAHA you're query doesn't have anything to print! That usually means you changed the database")
             else:
                 for output in list_of_outputs:
@@ -1527,7 +1556,7 @@ class MiscellaneousCommands(commands.Cog, name='Miscellaneous Commands'):
                 await ctx.send(f"cogs.{filename[:-3]}")
 
     @commands.command(help='COMING SOON!', brief='- makes the bot repeat what you said')
-    async def repeat_bot(self, ctx, *, message):
+    async def echo(self, ctx, *, message):
         await ctx.channel.purge(limit=1)
         await ctx.send(message)
 
@@ -1608,11 +1637,12 @@ class MiscellaneousCommands(commands.Cog, name='Miscellaneous Commands'):
         else:
             await ctx.send(f"COMING SOON! (Kinda)")
 
-    @commands.command(help='COMING SOON!', brief='- get_user, but pretty :D', aliases=['whois'])
-    async def get_user(self, ctx, user_context=None):
+    @commands.command(help='COMING SOON!', brief='- get_user, but pretty :D', aliases=['get_user'])
+    async def whois(self, ctx, user_context=None):
         """Just something to get the correct user. If user is in the guild, extra stuff will be added. If not, well too bad.
            Also support IDs, for you big brain people
         """
+        user = None
         error = discord.Embed(color=discord.Color.red(), title="ERROR",
                               description='BRUH YOU DUMEHEAD, that user does \*NOT\* exist. Get lost, you useless entity')
         if user_context:
@@ -1779,11 +1809,6 @@ class MiscellaneousCommands(commands.Cog, name='Miscellaneous Commands'):
                         current_help_cog_embed.add_field(name=command.name, value=command.brief, inline=False)
                 embed_list.append(current_help_cog_embed)
 
-        # for command in self.bot.walk_commands():
-        #     brief = command.brief
-        #     name = command.name
-        #     help_embed.add_field(name=name, value=brief, inline=False)
-        #     num_commands += 1
         if embed_list:
             for embed in embed_list:
                 await ctx.send(embed=embed)
@@ -1916,7 +1941,7 @@ class Tasks(commands.Cog):
         now = sec_since_midnight(datetime.datetime.now())
         if WIFI_ONLINE <= now <= WIFI_OFFLINE:
             community_server = self.bot.get_guild(COMMUNITY_ID)
-            cursor.execute("SELECT id, overall_infractions, audit_log_infractions FROM members")
+            cursor.execute("SELECT * FROM members")
             result = cursor.fetchall()
             result_better = dict([(h[0], [h[1], h[2]]) for h in result])
             columns = [column[0] for column in cursor.description]
@@ -1944,8 +1969,9 @@ class Tasks(commands.Cog):
                 # data right now: ID, Username, User Created, User Joined, User discriminator, Overall Infractions, Audit Log Infractions,
                 # Messages Sent In Past 30 Days, Bot, XP (Soon to be added), Bot Banned, Bot
                 if result_better and len(result_better) == len(community_server.members):
-                    data = (member.id, member.name, member.created_at, member.joined_at, member.discriminator, result_better[member.id][0],
-                            result_better[member.id][1], num_messages, result_best[member.id]["xp"], False, member.bot)
+                    data = (member.id, member.name, member.created_at, member.joined_at, member.discriminator,
+                            result_best[member.id]["overall_infractions"], result_best[member.id]["audit_log_infractions"], num_messages,
+                            result_best[member.id]["xp"], False, member.bot)
                 else:
                     data = (member.id, member.name, member.created_at, member.joined_at, member.discriminator, 0, 0, num_messages, 0, False,
                             member.bot)

@@ -1,7 +1,8 @@
 """... constants"""
 import discord
 
-SECRET_PASSWORD = 'thispassworddoesnotexist99!'
+with open(r"C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\SECRET_PASSWORD.txt") as read_file:
+    SECRET_PASSWORD = read_file.read().strip()
 DEFAULT_DATETIME_FORMAT = '%a %b %d %Y, %I:%M:%S %p'
 DEFAULT_PATH = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot'
 WOLFRAM_APP_ID = "5J4G9H-477E85WUJE"
@@ -21,3 +22,5 @@ MODERATORS = [683852333293109269, 541402251202134035]
 FORBIDDEN_WORDS = ['fuck', 'bitch', 'shit', 'gabe itch', 'penis', 'cunt', 'dildo', 'f|ck', 'n' + 'i' + 'g' + 'g' + 'a']
 FSTRING_NL = '\n'
 BASE_ERROR_EMBED = discord.Embed(color=discord.Color.red(), title="ERROR", description=None)
+
+# err, move SECRET_PASSWORD somewhere safe

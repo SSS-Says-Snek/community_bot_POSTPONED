@@ -84,12 +84,6 @@ async def pythonlogo(ctx):
     # TODO: You know, ADD THE DANG THING
 
 
-# @bot.command()
-# async def commands(ctx, request):
-#     if request == 'load':
-#         await ctx.send('```Load\nThis command loads a cog. \n\nExample: (pref)load cogs.(cog name)')
-
-# for filename in os.listdir('./cogs'): if filename.endswith('.py'): bot.load_extension(f"cogs.{filename[:-3]}")
 pre_loaded_extensions = [
     'cogs.BuiltInCogs',
     'cogs.core.slash'
