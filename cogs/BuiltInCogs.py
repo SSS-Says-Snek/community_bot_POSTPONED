@@ -97,6 +97,7 @@ WELCOME_MESSAGE = ""
 #                   "- Sincerely, Brandon Cui, owner of the bot"
 GOODBYE_MESSAGE = ""
 
+XP_PER_MINUTE_THRESHOLD = 14
 VERSION = 'v0.7.0'
 MODERATOR_SECRET_PASSWORD = SECRET_PASSWORD
 PATH_TO_USER_INFO_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files\user_info.json'
@@ -122,6 +123,8 @@ num_pings_since_last_checkpoint = 0
 sql_num_pings_since_last_checkpoint = 0
 do_not_insert_ping = False
 check_failure_reason = 'CheckFailure'
+num_xp_got_per_minute = {}
+ignore_xp_people = []
 notify_stuff = {
     "voice_channel": []
 }
@@ -449,7 +452,7 @@ class DebugAndEvents(commands.Cog, name='Debug and Events'):
                 result = cursor.fetchall()[0]
                 # Shh I don't care about this for some reason
                 guild_member_id, member_name, member_discriminator, overall_infractions, audit_log_infractions, bot_banned, \
-                    _, _, _, _, _ = result
+                _, _, _, _, _ = result
 
                 with open(PATH_TO_VARIABLES_JSON) as read_var_json:
                     suppress_infraction_punishments = json.load(read_var_json)["suppress_infraction_punishments"]
@@ -540,14 +543,26 @@ class DebugAndEvents(commands.Cog, name='Debug and Events'):
                                       f" profanity.\nBest Regards,\n\t- The Mod team\n"
                                       f"P.S: Because **`suppress_infraction_punishments`** is TRUE, you will not receive a punishment...\n"
                                       f"HOWEVER, because I am dumb, infractions will still go up...")
-        if server and will_gain_xp and not message.author.bot:
-            cursor.execute("UPDATE members SET xp=xp+1 WHERE id=%(id)s", {"id": message.author.id})
-            connection.commit()
-        elif server and message.author.bot:
-            cursor.execute("UPDATE members SET xp=NULL WHERE id=%(id)s", {"id": message.author.id})
-            connection.commit()
-        elif server and not will_gain_xp:
-            cursor.execute("UPDATE members SET xp=xp-20 WHERE id=%(id)s", {"id": message.author.id})
+
+        if server and not message.author.bot:
+            if message.author.id not in num_xp_got_per_minute and not message.author.bot:
+                num_xp_got_per_minute[message.author.id] = 1
+            else:
+                num_xp_got_per_minute[message.author.id] += 1
+            if message.author.id not in ignore_xp_people and num_xp_got_per_minute[message.author.id] == XP_PER_MINUTE_THRESHOLD:
+                ignore_xp_people.append(message.author.id)
+                await asyncio.sleep(60)
+                ignore_xp_people.remove(message.author.id)
+                del num_xp_got_per_minute[message.author.id]
+
+            if will_gain_xp and message.author.id not in ignore_xp_people:
+                cursor.execute("UPDATE members SET xp=xp+1 WHERE id=%(id)s", {"id": message.author.id})
+                connection.commit()
+            if not will_gain_xp:
+                cursor.execute("UPDATE members SET xp=xp-20 WHERE id=%(id)s", {"id": message.author.id})
+                connection.commit()
+        else:
+            cursor.execute("UPDATE members SET xp=0 WHERE id=%(id)s", {"id": message.author.id})
             connection.commit()
 
     @commands.command(help=f"{DISCORD_HYPHEN_SEPARATOR} PING {DISCORD_HYPHEN_SEPARATOR}\n"
@@ -1490,7 +1505,7 @@ class DMCommands(commands.Cog, name='DM Commands'):
         await ctx.send('**`SUCCESS`** Successfully shut down guild owner commands. Now they can\'t use **`POWERFUL`** commands!')
 
 
-class MiscellaneousCommands(commands.Cog, name='Miscellaneous Commands'):
+class UserCommands(commands.Cog, name='User Commands'):
 
     def __init__(self, bot):
         self.bot = bot
@@ -1564,11 +1579,11 @@ class MiscellaneousCommands(commands.Cog, name='Miscellaneous Commands'):
     async def files(self, ctx):
         await ctx.send('------------------------------ **`CHANGELOGS `** ------------------------------')
         await ctx.send(file=discord.File(r"C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord "
-                                         r"Code\Community Bot\cogs\community_bot_changelog.txt"))
+                                         r"Code\Community Bot\community_bot_changelog.txt"))
         await ctx.send(file=discord.File(r"C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord "
                                          r"Code\Community Bot\cogs\Doc\BuiltInCogs_doc.txt"))
         await ctx.send(file=discord.File(r"C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord "
-                                         r"Code\Community Bot\cogs\todo_things.txt"))
+                                         r"Code\Community Bot\todo_things.txt"))
 
     @commands.command(help='COMING SOON!', brief='- a command that has commands inside it :o')
     async def bot(self, ctx, parameters=None):
@@ -1692,7 +1707,9 @@ class MiscellaneousCommands(commands.Cog, name='Miscellaneous Commands'):
 
             # Sorry for the poopy code
             cursor.execute("SELECT * FROM members")
-            all_members_info = mysql_to_dict(cursor.fetchall(), [i[0] for i in cursor.description])
+            stuff = cursor.fetchall()
+            good_members_dict = mysql_to_dict_id_as_key_info_as_dict(stuff, [i[0] for i in cursor.description])
+            all_members_info = mysql_to_dict(stuff, [i[0] for i in cursor.description])
             # just some avatar stuff below
             avatar_url_png = str(user.avatar_url_as(static_format='png', size=512))
             avatar_url_jpg = str(user.avatar_url_as(static_format='jpg', size=512))
@@ -1769,12 +1786,18 @@ class MiscellaneousCommands(commands.Cog, name='Miscellaneous Commands'):
                 except IndexError:
                     pass
                 try:
+                    xp_place = sorted(all_members_info["xp"], reverse=True).index(good_members_dict[user.id]["xp"]) + 1
+                except ValueError:
+                    xp_place = '?'
+                try:
                     date_joined_place = date_members_joined_list.index(table_user_date_joined) + 1
                 except ValueError:
                     date_joined_place = "?"
                 user_embed.add_field(name="Server Info", value=f"Trust? {trust}\n"
                                                                f"Messages: {user_messages_sent} "
                                                                f"({inflect_engine.ordinal(messages_sent_place)})\n"
+                                                               f"XP: {good_members_dict[user.id]['xp']} "
+                                                               f"({inflect_engine.ordinal(xp_place)})\n"
                                                                f"{inflect_engine.ordinal(date_joined_place)} member joined",
                                      inline=True)
             user_embed.add_field(name="Miscellaneous",
@@ -1787,36 +1810,56 @@ class MiscellaneousCommands(commands.Cog, name='Miscellaneous Commands'):
                 user_embed.set_footer(text="Information may be limited when user is not in server | Made with ♥ in discord.py")
             await ctx.send(embed=user_embed)
 
-    @commands.command(help="COMING SOON! maybe", brief="- is it help.. but BETTER?")
-    async def test_help(self, ctx, *cmd_or_cog):
-        # whoops forgot hex code /shrug
-        help_embed = discord.Embed(color=ctx.author.color)
-        help_embed.set_author(name="Help",
-                              icon_url=BOT_ICON)
-        help_embed.set_footer(text=f"Help information requested by: {ctx.author}")
-        cogs_list = [i for i in self.bot.cogs]
-        cogs_list = [self.bot.get_cog(i) for i in cogs_list]
-        print(cogs_list)
-        embed_list = []
-        if not cmd_or_cog:
-            for cog in cogs_list:
-                current_help_cog_embed = discord.Embed(color=ctx.author.color)
-                current_help_cog_embed.set_author(name=cog.qualified_name,
-                                                  icon_url=BOT_ICON)
-                current_help_cog_embed.set_footer(text=f"Cog: {cog.qualified_name} • Info requested by {ctx.author}")
-                for command in cog.walk_commands():
-                    if len(current_help_cog_embed.fields) <= 25:
-                        current_help_cog_embed.add_field(name=command.name, value=command.brief, inline=False)
-                embed_list.append(current_help_cog_embed)
+    @commands.command(help="COMING SOON!", brief="- Shows this message")
+    async def help(self, ctx, *, cmd_or_cog=None):
+        async with ctx.typing():
+            help_embed = discord.Embed(color=0x024cb0)
+            help_embed.set_author(name="Help", icon_url=INFO_EMOJI)
+            not_found_embed = discord.Embed(color=discord.Color.red(), description=f"Failed to find help for {cmd_or_cog}. "
+                                                                                   f"Are you sure that exists?")
+            not_found_embed.set_author(name=f"No documentation for \"{cmd_or_cog}\"", icon_url=X_MARK)
+            excluded_cogs = ['slash', "tasks", "dm commands"]
+            all_cogs = [self.bot.get_cog(cog) for cog in self.bot.cogs]
+            all_commands = self.bot.commands
+            cog_names = [cog.qualified_name for cog in all_cogs]
+            found = True
 
-        if embed_list:
-            for embed in embed_list:
-                await ctx.send(embed=embed)
-
-    @commands.command(help="COMING SOON!", brief="Shut. This might replace OG help")
-    async def rewrite_help(self, ctx, *, cmd_or_cog):
-        help_embed = discord.Embed(color=0x024cb0)
-        await ctx.send(embed=help_embed)
+            if cmd_or_cog is None:
+                for cog in all_cogs:
+                    summary_commands = '```\n'
+                    detailed_commands = ''
+                    command_list = [command for command in cog.walk_commands()]
+                    for command in command_list:
+                        summary_commands += f"{command.name}\n"
+                        detailed_commands += f"`{self.bot.command_prefix}{command.name}` {command.brief}\n"
+                    summary_commands += '```'
+                    if str(cog.qualified_name).lower().strip() not in excluded_cogs:
+                        help_embed.add_field(name=f"__{cog.qualified_name}__",
+                                             value=f"{summary_commands}\n{detailed_commands}", inline=False)
+            elif str(cmd_or_cog).strip() in cog_names:
+                summary_commands = '```\n'
+                detailed_commands = ''
+                command_list = [command for command in self.bot.get_cog(cmd_or_cog).walk_commands()]
+                for command in command_list:
+                    summary_commands += f"{self.bot.command_prefix}{command.name}\n"
+                    detailed_commands += f"`{command.name}` {command.brief}\n"
+                summary_commands += '```'
+                help_embed.add_field(name=f"__{cmd_or_cog}__",
+                                     value=f"`{self.bot.get_cog(cmd_or_cog).__doc__}`\nCommands:\n{summary_commands}\n"
+                                           f"{detailed_commands}")
+            elif str(cmd_or_cog).strip() in [command.qualified_name for command in all_commands]:
+                requested_command = self.bot.get_command(str(cmd_or_cog).strip())
+                brief = requested_command.brief
+                long_help = requested_command.help
+                help_embed.add_field(name=f"__{self.bot.command_prefix}{requested_command.qualified_name}__",
+                                     value=f"{brief}\n```\n{long_help}\n```")
+            help_embed.set_footer(text=f"Help requested by: {ctx.author}")
+        if str(cmd_or_cog).strip() not in cog_names and str(cmd_or_cog).strip() not in [command.qualified_name for command in all_commands] \
+                and cmd_or_cog is not None:
+            await ctx.send(embed=not_found_embed)
+            found = False
+        if found:
+            await ctx.send(embed=help_embed)
 
     @clear.error
     async def clear_handler(self, ctx, error):
@@ -2117,6 +2160,6 @@ def setup(bot):
     bot.add_cog(FunCommands(bot))
     bot.add_cog(MathCommands(bot))
     bot.add_cog(DMCommands(bot))
-    bot.add_cog(MiscellaneousCommands(bot))
+    bot.add_cog(UserCommands(bot))
     bot.add_cog(ModeratorCommands(bot))
     bot.add_cog(Tasks(bot))

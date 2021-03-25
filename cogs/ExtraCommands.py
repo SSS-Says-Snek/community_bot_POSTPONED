@@ -120,7 +120,7 @@ class ExtraCommands(commands.Cog):
             send_to_user += f"**`AVATAR: `** {avatar}"
             await ctx.send(send_to_user)
         else:
-            await ctx.send(rf"BRUH YOU DUMBO. {user_context} doesn \*NOT\* exist. Get lost, you useless entity")
+            await ctx.send(rf"BRUH YOU DUMBO. {user_context} does \*NOT\* exist. Get lost, you useless entity")
 
 
 # NOTE: IMPORTANT

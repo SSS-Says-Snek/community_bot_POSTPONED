@@ -308,11 +308,12 @@ v0.7.1 changelogs:
                            (still not added yet tho)
 - NEW: Because of the slash commands, there's now a new file, slash.py! You know what it does C:
 - MODIFIED: Prepare some files to refactor (like cogs.core.events, cogs.core.tasks, etc)
-STATUS: PENDING
+- HUGE MODIFICATION: $help is NO MORE, replaced by.... $help. Seriously tho, it looks 10 times better
+STATUS: IMPLEMENTED
 
 DATE OF PLANNING: Tues Mar 9, 2021, at 11:17 PM
-DATE LAST MODIFIED: Tues Mar 23, 2021, at 10:42 PM
-DATE OF PLANNED RELEASE: Wed Mar 24, 2021, at 8:?? AM
+DATE LAST MODIFIED: Wed Mar 24, 2021, at 10:53 PM
+DATE OF PLANNED RELEASE: Thurs Mar 25, 2021, at 8:13 AM
 
 
 

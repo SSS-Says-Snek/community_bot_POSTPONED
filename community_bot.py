@@ -15,6 +15,8 @@ bot = commands.Bot(command_prefix='$', description='- shows this message', inten
 slash = SlashCommand(bot, sync_commands=True)
 PATH_TO_VARIABLES_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files\variables.json'
 
+bot.remove_command("help")
+
 with open(r"C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\COMMUNITY_TOKEN.txt") as read_token:
     TOKEN = read_token.read().strip()
 

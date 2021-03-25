@@ -30,7 +30,7 @@ from a certain channel. Options include: oldest messages, suppress pings, date b
 - **`NOTE`**: These commands offer basic functionality (except for $solve, that is big brain),
 but importing `cogs.MoreMathCommands` will contain even more math commands
 
-## Miscellaneous Commands
+## User Commands
 - `$cogs` lists out the cogs available, in case you don't know what they are
 - `$whois {user context}` gets some sweet info from a user. A user context can be: An ID, a mention, or a username+discriminator (last one is limited to server only)*
 

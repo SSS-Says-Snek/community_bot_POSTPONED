@@ -10,15 +10,12 @@
 - I dunno, adding some images for embeds? PRIORITY: 7.5/10 MILESTONE v7.4
 - REFACTOR: that long 700 character line thing made by Avaxar. MILESTONE v1.0
 - Remember to work on da $embed_solve. MILESTONE v0.7.2
-- Also find URL for exclamation point (Preferably yellow)
 
 =============================================================== BOT THINGS:  ===============================================================
 - ALWAYS need those performance enhancements (5.6/10) FEATURE REQUEST
 - Also needs that bug fix (3.8/10) FEATURE REQUEST
 - Add new stuff (8/10) FEATURE REQUEST (?)
 - Add infraction punishments (7/10) MILESTONE v0.7.1 - v0.7.3
-    - at 11-14 infractions, banrole them and DO NOT give them back their roles
-        - consider messaging the moderators at this point
     - 15+ will ban you
 ***COOL*** hey, it would be cool if instead of directly hardcoding the community guild, we would get guilds via self.bot.guilds, and store
            them in different databases MILESTONE v0.9.0
@@ -36,7 +33,6 @@
 - lol (10.2/10)
 - What if I add... comments??? (5/10) MILESTONE v0.7.5 - 0.8.5
 - Ditch bot_info.json and switch to sql??? (4.2/10) MILESTONE v0.8.3
-- Help command getting real ugly. umm.. how bout you make it better with *embeds* MILESTONE v0.7.3 - v0.7.5
 
 ========================================================== GENERAL PYTHON THINGS: ==========================================================
 - Convince Aidan to code (5/10)
