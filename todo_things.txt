@@ -3,7 +3,6 @@
 - Ask for help on coding the Community Bot. PRIORITY: 3.3/10
 - Chill and play Guardian Tales once in a while. PRIORITY: 9.02/10
 - MOOSIC (preferably by Lionel Yu). PRIORITY: 8.4/10
-- LEARN Requests to fill in *Les Thing* PRIORITY: 4/10 MILESTONE POSTPONED
 - Split BuiltInCogs.py into SMOL FILES. PRIORITY: 0.7/10 MILESTONE v1.x
 - Add chatterbot to make people less lonely. MILESTONE ??? (until chatterbot supports 3.8)
 - Add THOSE SWEET SWEET SLASH COMMANDS. PRIORITY: 8/10 MILESTONE v0.7.1 - v0.x.x
@@ -21,7 +20,7 @@
            them in different databases MILESTONE v0.9.0
 - Add anti-corruption, anti-raids, anti-bad-security, other stuff (6.6/10) FEATURE REQUEST
 - Give roles back when emergency lockdown finishes (4.8/10) MILESTONE v0.7.3
-- Plz convert ugly stuff to embeds... (∞ - ∞/10) MILESTONE v0.7.0 - v1.0.0
+- Plz convert ugly stuff to embeds... (∞ - ∞/10) MILESTONE v0.7.0 - v1.0.0 [#############------------------------------------------------]
 
 ================================================================  GENERAL BOT THINGS:  =====================================================
 - READ ALL THE DISCORD.PY DOCS.................. (Wut.)

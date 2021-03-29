@@ -18,7 +18,7 @@ made with ♥ (?) with discord.py.
 import wolframalpha
 import random
 import psutil
-from sympy import Eq, solve, Symbol, parse_expr, init_printing, linsolve, EmptySet, N
+from sympy import Eq, solve, Symbol, parse_expr, init_printing, linsolve, nonlinsolve, EmptySet, N
 from sympy.parsing.sympy_parser import standard_transformations, implicit_multiplication_application
 import contextlib
 import subprocess
@@ -452,7 +452,7 @@ class DebugAndEvents(commands.Cog, name='Debug and Events'):
                 result = cursor.fetchall()[0]
                 # Shh I don't care about this for some reason
                 guild_member_id, member_name, member_discriminator, overall_infractions, audit_log_infractions, bot_banned, \
-                _, _, _, _, _ = result
+                    _, _, _, _, _ = result
 
                 with open(PATH_TO_VARIABLES_JSON) as read_var_json:
                     suppress_infraction_punishments = json.load(read_var_json)["suppress_infraction_punishments"]
@@ -1248,7 +1248,7 @@ class MathCommands(commands.Cog, name='Math Commands'):
                 await ctx.send('K. Now, GIVE ME THE EQUATION YOU WANT TO EVALUATE. **`NOW`**')
                 user_input_evaluate = await self.bot.wait_for('message', check=check_if_same_person)
                 await ctx.send('Eek now I have **`ALL THE POWER IN THE WORLD`** to EVALUATE your poopy equation')
-                solution = N(str(user_input_evaluate.content).replace('^', '**')).expand()
+                solution = N(str(user_input_evaluate.content).replace('^', '**').replace('i', 'I')).expand()
                 await ctx.send(f"WOW WOW WOW WOW WOW I'm SO AMAZING. Anyways, Here's the evaluation result "
                                f"of **`{user_input_evaluate.content}`**: {str(solution)}")
 
@@ -1268,8 +1268,121 @@ class MathCommands(commands.Cog, name='Math Commands'):
                                                '\nSystems of Equations\nPolynomials\nCalculus (Not Implemented Yet)'
                                                '\nDerivatives (Not Implemented Yet)\nSubstitution (Doesn\'t work for fractions yet)'
                                                '\nEvaluate\nYou will have 30 seconds to choose')
-        mode_embed.set_author(name="Choose a solve mode", icon_url=X_MARK)
+        mode_embed.set_author(name="Choose a solve mode", icon_url=INFO_EMOJI)
         await ctx.send(embed=mode_embed)
+        try:
+            solve_mode = await self.bot.wait_for("message", check=check, timeout=30)
+        except asyncio.TimeoutError:
+            timeout_embed = discord.Embed(color=discord.Color.red(),
+                                          description="Failed to respond within the 30 second time limit. Please try again")
+            timeout_embed.set_author(name='Ran out of time', icon_url=X_MARK)
+            await ctx.send(embed=timeout_embed)
+        else:
+            solve_mode = solve_mode.content
+            problem_embed = discord.Embed(color=discord.Color.blue(),
+                                          description="Please enter your problem\nSome guidelines:\n"
+                                                      "1. You **may** indicate exponents with ^")
+            if solve_mode == 'polynomials':
+                await ctx.send(embed=problem_embed)
+                user_input_problem = await self.bot.wait_for('message', check=check_if_same_person)
+                og_user_input_problem = user_input_problem.content
+                received_problem_embed = discord.Embed(color=discord.Color.gold(),
+                                                       description=f"Attempting to solve **{user_input_problem}**...\n"
+                                                                   f"This shouldn't take long")
+                received_problem_embed.set_author(name="Solving polynomial...", icon_url=INFO_EMOJI)
+                init_printing(pretty_print=True)
+                user_input_problem = str(user_input_problem.content).lower().replace('^', '**').replace('times', '*')
+                try:
+                    user_input_problem_split, num = user_input_problem.split('=')
+                except ValueError:
+                    user_input_problem_split, num = user_input_problem, 0
+                expression = parse_expr(user_input_problem_split, transformations=transformations)
+                try:
+                    solution = solve(Eq(expression, int(num)))
+                except ValueError:
+                    solution = solve(user_input_problem_split)
+
+                reconstructed_solution = []
+                for sol in solution:
+                    reconstructed_solution.append(str(sol).replace('**', '^').replace('*', r'\*'))
+                solution_embed = discord.Embed(color=discord.Color.green())
+                solution_embed.set_author(name=f"Found solution for {og_user_input_problem} "
+                                               f"{f'= {num}' if '=' not in og_user_input_problem else ''}", icon_url=CHECK_MARK)
+                for num, sol in enumerate(reconstructed_solution, start=1):
+                    current_solution = N(solution[num-1], 4)
+                    solution_embed.add_field(name=f"Solution {num}",
+                                             value=f"{sol} ({current_solution})")
+                await ctx.send(embed=solution_embed)
+            elif solve_mode == 'systems of equations':
+                var_embed = discord.Embed(color=discord.Color.gold(),
+                                          description="Please enter the variables for your problem (separated by commas or spaces)")
+                var_embed.set_author(name="Enter equation variables", icon_url=INFO_EMOJI)
+                await ctx.send(embed=var_embed)
+                user_input_var = await self.bot.wait_for('message', check=check_if_same_person)
+
+                done = False
+                sys_of_eq_str = []
+                sys_of_eq_sympy_list = []
+                problem_embed = discord.Embed(color=discord.Color.gold(),
+                                              description="Please enter your problem. Some things to note:\n"
+                                                          "1. Send the equations one by one\n"
+                                                          "2. You **can** substitute the exponents with ^\n"
+                                                          "3. Type \"Done\" when you are finished")
+                problem_embed.set_author(name="Enter systems of equations", icon_url=INFO_EMOJI)
+                while not done:
+                    await ctx.send(embed=problem_embed)
+                    expression = await self.bot.wait_for('message', check=check_if_same_person)
+                    if str(expression.content).lower().strip() != 'done':
+                        sys_of_eq_str.append(expression.content)
+                    else:
+                        done = True
+                solving_embed = discord.Embed(color=discord.Color.gold(),
+                                              description="Attempting to solve the systems of equations...\nThis should not take long")
+                solving_embed.set_author(name="Solving equations...", icon_url=INFO_EMOJI)
+                await ctx.send(embed=solving_embed)
+                for eq in sys_of_eq_str:
+                    actual_equation, thing_to_equal = eq.split('=')
+                    expression = parse_expr(actual_equation, transformations=transformations)
+                    sys_of_eq_sympy_list.append(Eq(expression, int(thing_to_equal)))
+                solution = nonlinsolve(sys_of_eq_sympy_list, list((Symbol(var) for var in str(user_input_var.content).replace(' ', '').replace(',', ''))))
+                solution = next(iter(solution))
+                solution_found_embed = discord.Embed(color=discord.Color.green(),
+                                                     description="Solution found! Here are the solutions to the systems of equations:")
+                solution_found_embed.set_author(name="Solution(s) found!", icon_url=CHECK_MARK)
+                if solution != EmptySet:
+                    for num, result in enumerate(solution.args):
+                        if str(result).replace(' ', ''):
+                            solution_found_embed.add_field(name=f"Solution for {str(user_input_var.content).replace(' ', '')[num]}:",
+                                                           value=f"`{result}`")
+                            # await ctx.send(f"{str(user_input_var.content).replace(' ', '')[num]}: {result}")
+                    await ctx.send(embed=solution_found_embed)
+                else:
+                    no_sol_embed = discord.Embed(color=discord.Color.red(),
+                                                 description="No solution found! Your systems of equations contained no solution")
+                    no_sol_embed.set_author(name="No solution found", icon_url=X_MARK)
+                    await ctx.send(embed=no_sol_embed)
+            elif solve_mode == 'substitution':
+                raise NotImplementedError
+            elif solve_mode == 'evaluate':
+                problem_embed.description += "\n2.You should not include variables. However, the bot will still evaluate the variables " \
+                                             "(imaginary number `i` is allowed)"
+                await ctx.send(embed=problem_embed)
+                user_input_evaluate = await self.bot.wait_for('message', check=check_if_same_person)
+                evaluate_embed = discord.Embed(color=discord.Color.gold(),
+                                               description=f"Evaluating expression **{user_input_evaluate.content}**. "
+                                                           f"This will not take long.")
+                evaluate_embed.set_author(name="Evaluating expression...", icon_url=INFO_EMOJI)
+                await ctx.send(embed=evaluate_embed)
+                solution = N(str(user_input_evaluate.content).replace('^', '**').replace('i', 'I').replace(r'\*', '*')).expand()
+                solution_embed = discord.Embed(color=discord.Color.green(),
+                                               description=f"Solved expression {user_input_evaluate.content}.\n"
+                                                           f"Solution: {solution}")
+                solution_embed.set_author(name=f"Solution for {user_input_evaluate.content}", icon_url=CHECK_MARK)
+                await ctx.send(embed=solution_embed)
+            elif solve_mode == 'calculus':
+                raise NotImplementedError
+            elif solve_mode == 'derivatives':
+                raise NotImplementedError
 
     @exponent.error
     async def exponent_handler(self, ctx, error):
@@ -1437,12 +1550,12 @@ class ModeratorCommands(commands.Cog, name='Moderator Commands'):
 
     @commands.command(help='COMING SOON!', brief='- runs SQL query... I think')
     @commands.is_owner()
-    async def sql_query(self, ctx):
+    async def sql(self, ctx):
         sql_embed = discord.Embed(title="Enter SQL Query",
                                   description=f"Please type out your SQL query, {ctx.author.mention}\n"
                                               f"(MySQL is used in this case)")
         # NOTE: Find color for MySQL Workbench
-        await ctx.send(f"**`SQL TIME`** Please type your SQL query, {ctx.author.mention}")
+        await ctx.send(embed=sql_embed)
 
         def check(author_check):
             return author_check.author.id == ctx.author.id and author_check.author.id != self.bot.user.id
@@ -1550,18 +1663,9 @@ class UserCommands(commands.Cog, name='User Commands'):
     @commands.has_permissions(manage_messages=True)
     # @commands.has_any_role('MODERATOR', 'Trusted', 'Co-manager', 'Administrator', 'CEO', 'Trusted By Owner')
     # MinorNote: Uncomment above line to restrict access to most people
-    async def clear(self, ctx, amount: int):
-        if not shutdown:
-            # aidan = self.bot.get_user(683864011959435380)
-            # MinorNote: Comment below and remove tabs to make aidan actually able to do that
-            # if str(ctx.author.name).strip() != aidan.name:
-            roles = ctx.author.roles
-            roles.reverse()
+    async def clear(self, ctx, amount: int, *, options=None):
+        if options is None:
             await ctx.channel.purge(limit=amount)
-            # else:
-            #     await ctx.send('You are Aidan, so therefore you can\'t use this')
-        else:
-            await ctx.send(BOT_SHUTDOWN_MESSAGE)
 
     @commands.command(help='COMING SOON!', brief='- shows all the cogs in the cogs folder')
     async def cogs(self, ctx):
