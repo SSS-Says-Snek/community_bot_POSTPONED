@@ -105,7 +105,7 @@ def is_string_id(string_id):
 
 def is_discord_username(username):
     """re makes me feel smart"""
-    if re.match('\S+#\d{4}', username):
+    if re.match(r'.+#\d{4}', username):
         return True
     return False
 

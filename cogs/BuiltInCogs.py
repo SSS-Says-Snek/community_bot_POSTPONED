@@ -105,7 +105,7 @@ PATH_TO_BOT_INFO_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\
 PATH_TO_AUDIT_LOG_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files' \
                          r'\ignored_audit_log_id.json'
 PATH_TO_VARIABLES_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files\variables.json'
-SKIP_EXTENSION_LOAD = ['cogs.utility']
+SKIP_EXTENSION_LOAD = ['utility.py', 'constants.py']
 CST = pytz.timezone("US/Central")
 
 with open(PATH_TO_VARIABLES_JSON) as read_variable_json:
@@ -216,7 +216,7 @@ def is_shutdown():
     with open(PATH_TO_VARIABLES_JSON) as read_var_json:
         suppress_guild_owner_commands = json.load(read_var_json)["shutdown"]
 
-    def predicate(ctx):
+    def predicate(_):
         return not suppress_guild_owner_commands
 
     check_failure_reason = 'Shut Down'
@@ -1137,7 +1137,7 @@ class MathCommands(commands.Cog, name='Math Commands'):
             await ctx.send(BOT_SHUTDOWN_MESSAGE)
 
     @commands.command(help=NO_HELP_ERROR_MESSAGE, brief='- solves something. I guess it works?')
-    async def solve(self, ctx):
+    async def old_solve(self, ctx):
         # NOTE: NYA HAHA this might be turned into pretty command
         def check(author_check):
             return str(author_check.content).lower().strip() in [
@@ -1252,8 +1252,8 @@ class MathCommands(commands.Cog, name='Math Commands'):
                 await ctx.send(f"WOW WOW WOW WOW WOW I'm SO AMAZING. Anyways, Here's the evaluation result "
                                f"of **`{user_input_evaluate.content}`**: {str(solution)}")
 
-    @commands.command(help="COMING SOON!", brief="- Embed version of $solve")
-    async def embed_solve(self, ctx):
+    @commands.command(help="COMING SOON!", brief="- Embed version of $solve (BETA TESTING)")
+    async def solve(self, ctx):
         def check(author_check):
             return str(author_check.content).lower().strip() in [
                 'systems of equations', 'polynomials', 'calculus', 'derivatives', 'substitution', 'evaluate'] \
@@ -1344,7 +1344,10 @@ class MathCommands(commands.Cog, name='Math Commands'):
                     actual_equation, thing_to_equal = eq.split('=')
                     expression = parse_expr(actual_equation, transformations=transformations)
                     sys_of_eq_sympy_list.append(Eq(expression, int(thing_to_equal)))
-                solution = nonlinsolve(sys_of_eq_sympy_list, list((Symbol(var) for var in str(user_input_var.content).replace(' ', '').replace(',', ''))))
+                solution = nonlinsolve(
+                    sys_of_eq_sympy_list,
+                    list((Symbol(var) for var in str(user_input_var.content).replace(' ', '').replace(',', '')))
+                )
                 solution = next(iter(solution))
                 solution_found_embed = discord.Embed(color=discord.Color.green(),
                                                      description="Solution found! Here are the solutions to the systems of equations:")
@@ -1354,7 +1357,6 @@ class MathCommands(commands.Cog, name='Math Commands'):
                         if str(result).replace(' ', ''):
                             solution_found_embed.add_field(name=f"Solution for {str(user_input_var.content).replace(' ', '')[num]}:",
                                                            value=f"`{result}`")
-                            # await ctx.send(f"{str(user_input_var.content).replace(' ', '')[num]}: {result}")
                     await ctx.send(embed=solution_found_embed)
                 else:
                     no_sol_embed = discord.Embed(color=discord.Color.red(),
@@ -1362,7 +1364,52 @@ class MathCommands(commands.Cog, name='Math Commands'):
                     no_sol_embed.set_author(name="No solution found", icon_url=X_MARK)
                     await ctx.send(embed=no_sol_embed)
             elif solve_mode == 'substitution':
-                raise NotImplementedError
+                problem_embed = discord.Embed(color=discord.Color.gold(),
+                                              description="Please enter the problem to substitute. Some guidelines:\n"
+                                                          "1. You **may** replace exponents with ^")
+                problem_embed.set_author(name="Enter substitution problem", icon_url=INFO_EMOJI)
+                await ctx.send(embed=problem_embed)
+                user_input_substitute = await self.bot.wait_for('message', check=check_if_same_person)
+                done = False
+                sub_var_list = []
+                sub_var_list_parsed = []
+                while not done:
+                    substitution_embed = discord.Embed(color=discord.Color.gold(),
+                                                       description="Enter the variables you wish to sustitute, and the value to "
+                                                                   "substitude, separated by spaces. (E.g, a valid input would be "
+                                                                   "\"x 100\")\nSay \"done\" when you are finished!")
+                    substitution_embed.set_author(name="Enter your substitutions", icon_url=INFO_EMOJI)
+                    await ctx.send(embed=substitution_embed)
+                    sub_var = await self.bot.wait_for('message', check=check_if_same_person)
+                    if str(sub_var.content).lower().strip() != 'done':
+                        sub_var_list.append(sub_var.content)
+                    else:
+                        done = True
+                solving_embed = discord.Embed(color=discord.Color.gold(),
+                                              description="Attempting to substitute your problem... This should not take long.")
+                solving_embed.set_author(name="Substituting problem...", icon_url=INFO_EMOJI)
+                await ctx.send(embed=solving_embed)
+                if len(sub_var_list) != 1:
+                    for sub_var in sub_var_list:
+                        var, value = sub_var.split(' ')
+                        sub_var_list_parsed.append((parse_expr(var), parse_expr(value)))
+                    sub_var_list_parsed = tuple(sub_var_list_parsed)
+                    user_input_substitute_parsed = parse_expr(str(
+                        user_input_substitute.content).replace('^', '**').replace(r'\*', '*'), transformations=transformations)
+                    solution = user_input_substitute_parsed.subs(sub_var_list_parsed)
+                    solution = str(solution).replace('**', '^').replace('*', r'\*')
+                else:
+                    var, value = sub_var_list[0].split(' ')
+                    user_input_substitute_parsed = parse_expr(str(
+                        user_input_substitute.content
+                    ).replace('^', '**'), transformations=transformations)
+                    solution = user_input_substitute_parsed.subs(parse_expr(var), parse_expr(value))
+
+                solution_embed = discord.Embed(color=discord.Color.green(),
+                                               description=f"Successfully substituted problem! Here's the solution of "
+                                                           f"{user_input_substitute.content}:\n`{str(solution)}`")
+                solution_embed.set_author(name="Solution found!", icon_url=CHECK_MARK)
+                await ctx.send(embed=solution_embed)
             elif solve_mode == 'evaluate':
                 problem_embed.description += "\n2.You should not include variables. However, the bot will still evaluate the variables " \
                                              "(imaginary number `i` is allowed)"
@@ -1664,8 +1711,11 @@ class UserCommands(commands.Cog, name='User Commands'):
     # @commands.has_any_role('MODERATOR', 'Trusted', 'Co-manager', 'Administrator', 'CEO', 'Trusted By Owner')
     # MinorNote: Uncomment above line to restrict access to most people
     async def clear(self, ctx, amount: int, *, options=None):
+        num_purge_actions, remainder = divmod(amount, 100)
         if options is None:
-            await ctx.channel.purge(limit=amount)
+            for _ in range(num_purge_actions):
+                await ctx.channel.purge(limit=100)
+            await ctx.channel.purge(limit=remainder)
 
     @commands.command(help='COMING SOON!', brief='- shows all the cogs in the cogs folder')
     async def cogs(self, ctx):
@@ -1726,15 +1776,9 @@ class UserCommands(commands.Cog, name='User Commands'):
                 memory_info = format_byte(process.memory_info().rss)
                 used_ram = format_byte(psutil.virtual_memory().used)
                 when_ran = datetime.datetime.fromtimestamp(process.create_time()).strftime(DEFAULT_DATETIME_FORMAT)
+                fromtimestamp_mod_time = datetime.datetime.fromtimestamp(mod_time)
                 when_ran_arrow = arrow.get(process.create_time())
                 humanize_process_when_ran = when_ran_arrow.humanize(arrow.utcnow())
-                # await ctx.send(f"{DISCORD_HYPHEN_SEPARATOR} **`INFO`** {DISCORD_HYPHEN_SEPARATOR}\n"
-                #                f"**`VERSION:`** {VERSION}\n"
-                #                f"**`OWNER OF BOT:`** {brandon.name}\n"
-                #                f"**`LAST MODIFIED:`** {datetime.datetime.fromtimestamp(mod_time).strftime(DEFAULT_DATETIME_FORMAT)}\n"
-                #                f"**`NUMBER OF CHARACTERS:`** {sum(list_of_num_chars)}\n"
-                #                f"**`MEMORY TAKEN UP:`** {memory_info} ({round(process.memory_percent(), 4)}% of {used_ram})\n"
-                #                f"**`TIME OF EXECUTION:`** {when_ran}")
                 info_embed = discord.Embed(color=ctx.author.color)
                 info_embed.set_author(name="Debug Information",
                                       icon_url=BOT_ICON)
@@ -1743,8 +1787,8 @@ class UserCommands(commands.Cog, name='User Commands'):
                 info_embed.add_field(name="Owner of bot", value=bot_owner.name, inline=True)
                 info_embed.add_field(name="Time of Execution", value=f"{when_ran}\n({humanize_process_when_ran})", inline=False)
                 info_embed.add_field(name="Time last Modified",
-                                     value=f"{datetime.datetime.fromtimestamp(mod_time).strftime(DEFAULT_DATETIME_FORMAT)}\n"
-                                           f"({arrow.get(datetime.datetime.fromtimestamp(mod_time)).humanize(arrow.utcnow().shift(hours=-5))})",
+                                     value=f"{fromtimestamp_mod_time.strftime(DEFAULT_DATETIME_FORMAT)}\n"
+                                           f"({arrow.get(fromtimestamp_mod_time).humanize(arrow.utcnow().shift(hours=-5))})",
                                      inline=True)
                 info_embed.add_field(name="Memory Taken Up",
                                      value=f"{memory_info} ({round(process.memory_percent(), 4)}% of {used_ram})", inline=False)
@@ -1757,13 +1801,13 @@ class UserCommands(commands.Cog, name='User Commands'):
             await ctx.send(f"COMING SOON! (Kinda)")
 
     @commands.command(help='COMING SOON!', brief='- get_user, but pretty :D', aliases=['get_user'])
-    async def whois(self, ctx, user_context=None):
+    async def whois(self, ctx, *, user_context=None):
         """Just something to get the correct user. If user is in the guild, extra stuff will be added. If not, well too bad.
            Also support IDs, for you big brain people
         """
         user = None
         error = discord.Embed(color=discord.Color.red(), title="ERROR",
-                              description='BRUH YOU DUMEHEAD, that user does \*NOT\* exist. Get lost, you useless entity')
+                              description=r'BRUH YOU DUMEHEAD, that user does \*NOT\* exist. Get lost, you useless entity')
         if user_context:
             if is_string_id(user_context):
                 user_mode = 'mention'
@@ -1801,8 +1845,8 @@ class UserCommands(commands.Cog, name='User Commands'):
                 user = discord.utils.get(self.bot.get_all_members(), name=username, discriminator=discriminator)
                 if not user:
                     error.description = 'BRUH YOU DUMEHEAD, that user either:\n' \
-                                        'Does \*NOT\* share a server with ME, OR\n' \
-                                        'Does \*NOT\* exist. Get lost, you useless entity'
+                                        'Does \\*NOT\\* share a server with ME, OR\n' \
+                                        'Does \\*NOT\\* exist. Get lost, you useless entity'
                     await ctx.send(embed=error)
         else:
             user = ctx.guild.get_member(ctx.author.id)
@@ -1866,10 +1910,6 @@ class UserCommands(commands.Cog, name='User Commands'):
                 user_roles.reverse()
                 user_roles_mention = [role.mention for role in user_roles if role.name != '@everyone']
                 user_embed.add_field(name=f"Roles ({len(user_roles) - 1})", value='  '.join(user_roles_mention), inline=False)
-                # user_embed.add_field(name="Server Info", value="test", inline=)
-            user_embed.add_field(name="Avatar as", value=f"[png]({avatar_url_png}) | "
-                                                         f"[jpg]({avatar_url_jpg}) | "
-                                                         f"[webp]({avatar_url_web})", inline=True)
             if isinstance(user, discord.member.Member):
                 cursor.execute("SELECT id, messages_sent FROM members ORDER BY messages_sent DESC")
                 messages_sent = cursor.fetchall()
@@ -1908,6 +1948,9 @@ class UserCommands(commands.Cog, name='User Commands'):
                                  value=f"Bot? {user.bot}\nSystem? {user.system}"
                                        f"{f'{FSTRING_NL}Trust? {trust}' if trust and not isinstance(user, discord.member.Member) else ''}",
                                  inline=True)
+            user_embed.add_field(name="Avatar as", value=f"[png]({avatar_url_png}) | "
+                                                         f"[jpg]({avatar_url_jpg}) | "
+                                                         f"[webp]({avatar_url_web})", inline=True)
             if isinstance(user, discord.member.Member):
                 user_embed.set_footer(text=f"Made with ♥ in discord.py")
             else:
@@ -1958,8 +2001,8 @@ class UserCommands(commands.Cog, name='User Commands'):
                 help_embed.add_field(name=f"__{self.bot.command_prefix}{requested_command.qualified_name}__",
                                      value=f"{brief}\n```\n{long_help}\n```")
             help_embed.set_footer(text=f"Help requested by: {ctx.author}")
-        if str(cmd_or_cog).strip() not in cog_names and str(cmd_or_cog).strip() not in [command.qualified_name for command in all_commands] \
-                and cmd_or_cog is not None:
+        if str(cmd_or_cog).strip() not in cog_names \
+                and str(cmd_or_cog).strip() not in [command.qualified_name for command in all_commands] and cmd_or_cog is not None:
             await ctx.send(embed=not_found_embed)
             found = False
         if found:

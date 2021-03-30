@@ -5,10 +5,11 @@
 - MOOSIC (preferably by Lionel Yu). PRIORITY: 8.4/10
 - Split BuiltInCogs.py into SMOL FILES. PRIORITY: 0.7/10 MILESTONE v1.x
 - Add chatterbot to make people less lonely. MILESTONE ??? (until chatterbot supports 3.8)
-- Add THOSE SWEET SWEET SLASH COMMANDS. PRIORITY: 8/10 MILESTONE v0.7.1 - v0.x.x
+- Add THOSE SWEET SWEET SLASH COMMANDS. PRIORITY: 8/10 MILESTONE forever
 - I dunno, adding some images for embeds? PRIORITY: 7.5/10 MILESTONE v7.4
 - REFACTOR: that long 700 character line thing made by Avaxar. MILESTONE v1.0
 - Remember to work on da $embed_solve. MILESTONE v0.7.2
+- Add a $rank (maybe $top or $level, something like that) that utilizes the now added XP system. MILESTONE v0.7.3 < x < v0.8.0
 
 =============================================================== BOT THINGS:  ===============================================================
 - ALWAYS need those performance enhancements (5.6/10) FEATURE REQUEST

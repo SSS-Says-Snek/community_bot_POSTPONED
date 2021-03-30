@@ -27,13 +27,14 @@ from a certain channel. Options include: oldest messages, suppress pings, date b
 ## Math Commands
 - `$add/$subtract/$multiply/$divide/$sqrt/$exponent/$square {num} {num}`... these are the most self-explanatory
 - `$solve` can solve A LOT of problems (E.g. Systems of equations, algebra, etc). A bit complicated to use, but hey, it works
+- `$embed_solve` is just like solve, but prettier. **NOTE:** This command is in beta testing, and will soon replace `$solve` when ready
 - **`NOTE`**: These commands offer basic functionality (except for $solve, that is big brain),
 but importing `cogs.MoreMathCommands` will contain even more math commands
 
 ## User Commands
 - `$cogs` lists out the cogs available, in case you don't know what they are
-- `$whois {user context}` gets some sweet info from a user. A user context can be: An ID, a mention, or a username+discriminator (last one is limited to server only)*
-
+- `$(whois/get_user) {user context}` gets some sweet info from a user. A user context can be: An ID, a mention, or a username+discriminator (last one is limited to server only)*
+- `$clear {num messages}`
 Have a suggestion, or does something not work? Feel free to leave a pull request, or an issue
 
 *this command may not work in different servers right now, but that's okay as I will look into it
