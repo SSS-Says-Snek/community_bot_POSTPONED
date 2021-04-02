@@ -6,6 +6,9 @@ cogs/core/__pycache__/
 # Jetbrains IDEs
 .idea/
 
+# Github Directories
+.github/
+
 # Not ready to be deployed
 cogs - REWRITE/
 website/
