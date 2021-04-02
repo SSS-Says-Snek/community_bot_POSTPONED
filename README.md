@@ -26,8 +26,8 @@ from a certain channel. Options include: oldest messages, suppress pings, date b
 
 ## Math Commands
 - `$add/$subtract/$multiply/$divide/$sqrt/$exponent/$square {num} {num}`... these are the most self-explanatory
-- `$solve` can solve A LOT of problems (E.g. Systems of equations, algebra, etc). A bit complicated to use, but hey, it works
-- `$embed_solve` is just like solve, but prettier. **NOTE:** This command is in beta testing, and will soon replace `$solve` when ready
+- `$solve` can solve A LOT of problems (E.g. Systems of equations, algebra, etc). It also looks nice...
+- `$old_solve` is just like `$solve`, but *old*
 - **`NOTE`**: These commands offer basic functionality (except for $solve, that is big brain),
 but importing `cogs.MoreMathCommands` will contain even more math commands
 
@@ -39,4 +39,4 @@ Have a suggestion, or does something not work? Feel free to leave a pull request
 
 *this command may not work in different servers right now, but that's okay as I will look into it
 
-**do ***NOT*** try to exploit this, I have protecction
+**do ***NOT*** try to exploit this, you'll need to verify identity first

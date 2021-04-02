@@ -116,13 +116,13 @@ with open(PATH_TO_VARIABLES_JSON) as read_variable_json:
 debug = all_variables["debug"]
 mode = all_variables["mode"]
 shutdown = all_variables["shutdown"]
+check_failure_reason = 'CheckFailure'
 beta_mode = False
 stop_roles_update = False
 first_time = True
 num_pings_since_last_checkpoint = 0
 sql_num_pings_since_last_checkpoint = 0
 do_not_insert_ping = False
-check_failure_reason = 'CheckFailure'
 num_xp_got_per_minute = {}
 ignore_xp_people = []
 notify_stuff = {
@@ -646,7 +646,7 @@ class DebugAndEvents(commands.Cog, name='Debug and Events'):
 
     @commands.command(help=NO_HELP_ERROR_MESSAGE, brief='- whatever I want to test, IS IN HERE')
     async def function_test(self, ctx):
-        await ctx.send('whoops')
+        await ctx.send('sorry')
 
 
 class OwnerOnly(commands.Cog, name='Owner Only'):
@@ -1252,8 +1252,13 @@ class MathCommands(commands.Cog, name='Math Commands'):
                 await ctx.send(f"WOW WOW WOW WOW WOW I'm SO AMAZING. Anyways, Here's the evaluation result "
                                f"of **`{user_input_evaluate.content}`**: {str(solution)}")
 
-    @commands.command(help="COMING SOON!", brief="- Embed version of $solve (BETA TESTING)")
+    @commands.command(brief="- solves a problem. Pretty simple...")
     async def solve(self, ctx):
+        """
+        Usage: $solve
+        This command is able to solve a lot of problems, but it's a bit complicated to use. First, it will prompt you to choose
+        "the solve mode". Then, it will prompt you to enter a problem
+        """
         def check(author_check):
             return str(author_check.content).lower().strip() in [
                 'systems of equations', 'polynomials', 'calculus', 'derivatives', 'substitution', 'evaluate'] \
@@ -1802,8 +1807,8 @@ class UserCommands(commands.Cog, name='User Commands'):
 
     @commands.command(help='COMING SOON!', brief='- get_user, but pretty :D', aliases=['get_user'])
     async def whois(self, ctx, *, user_context=None):
-        """Just something to get the correct user. If user is in the guild, extra stuff will be added. If not, well too bad.
-           Also support IDs, for you big brain people
+        """
+        COMING SOON!
         """
         user = None
         error = discord.Embed(color=discord.Color.red(), title="ERROR",
@@ -1879,9 +1884,6 @@ class UserCommands(commands.Cog, name='User Commands'):
                 trust = None
 
             if isinstance(user, discord.member.Member):
-                # perm_list = [perm[0] for perm in user.guild_permissions if perm[1]] NOTE: plz do this later, future self
-                # Future self here, how bout nah...
-                # print([perm[0] for perm in user.guild_permissions])
                 cursor.execute('SELECT overall_infractions FROM members WHERE id=%(id)s', {"id": user.id})
                 unnecessarily_compact_infractions = cursor.fetchall()
                 infractions = unnecessarily_compact_infractions[0][0]

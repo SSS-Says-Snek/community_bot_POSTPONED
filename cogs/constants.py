@@ -23,5 +23,3 @@ MODERATORS = [683852333293109269, 541402251202134035]
 FORBIDDEN_WORDS = ['fuck', 'bitch', 'shit', 'gabe itch', 'penis', 'cunt', 'dildo', 'f|ck', 'n' + 'i' + 'g' + 'g' + 'a']
 FSTRING_NL = '\n'
 BASE_ERROR_EMBED = discord.Embed(color=discord.Color.red(), title="ERROR", description=None)
-
-# err, move SECRET_PASSWORD somewhere safe

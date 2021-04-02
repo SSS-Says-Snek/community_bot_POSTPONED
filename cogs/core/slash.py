@@ -8,6 +8,8 @@ from cogs.constants import *
 import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
+from discord_slash.utils.manage_commands import create_option
+from cogs.BuiltInCogs import check_failure_reason
 
 guilds = [COMMUNITY_ID, 794887114013540383]
 
@@ -24,6 +26,22 @@ class Slash(commands.Cog):
         if bot_latency >= 100:
             embed.description = f"**`WARNING 004:`** Pong! Bot reaction time: {round(bot_latency)} milliseconds"
         await ctx.send(embeds=[embed])
+
+    @cog_ext.cog_slash(name="clear", description="Clears some messages in the channel",
+                       options=[
+                           create_option(name="messages", description="The number of messages to clear", option_type=4, required=True)
+                       ], guild_ids=guilds)
+    async def clear(self, ctx: SlashContext, messages: int):
+        num_purge_actions, remainder = divmod(messages, 100)
+        if isinstance(ctx.channel, discord.TextChannel) and ctx.author.roles:
+            for _ in range(num_purge_actions):
+                await ctx.channel.purge(limit=100)
+            await ctx.channel.purge(limit=remainder)
+            cleared_embed = discord.Embed(color=discord.Color.green(),
+                                          description=f"Successfully cleared {str(messages)} "
+                                                      f"{f'message' if messages == 1 else 'messages'}!")
+            cleared_embed.set_author(name=f"Cleared {str(messages)} {f'message' if messages == 1 else 'messages'}", icon_url=CHECK_MARK)
+            await ctx.send(embeds=[cleared_embed])
 
 
 def setup(bot):
