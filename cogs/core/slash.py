@@ -9,9 +9,27 @@ import discord
 from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
 from discord_slash.utils.manage_commands import create_option
-from cogs.BuiltInCogs import check_failure_reason
 
 guilds = [COMMUNITY_ID, 794887114013540383]
+
+
+def is_trusted():
+    """checks if the author that called the command is trusted"""
+
+    async def predicate(ctx):
+        """the predicate of the command"""
+        author_roles = [role for role in ctx.author.roles if role.name != "@everyone"]
+        for role in author_roles:
+            if role.id in TRUSTED_ROLES:
+                return True
+        nope_embed = discord.Embed(color=discord.Color.red(),
+                                   description="Permission is denied, as you do not have one of the following roles:\n"
+                                               f"{FSTRING_NL.join([discord.utils.get(ctx.guild.roles, id=role_id).name for role_id in TRUSTED_ROLES])}\n"
+                                               f"To run this command, you must need one ore more of these roles.")
+        await ctx.send(embed=nope_embed)
+        return False
+
+    return commands.check(predicate)
 
 
 class Slash(commands.Cog):
@@ -31,6 +49,7 @@ class Slash(commands.Cog):
                        options=[
                            create_option(name="messages", description="The number of messages to clear", option_type=4, required=True)
                        ], guild_ids=guilds)
+    @is_trusted()
     async def clear(self, ctx: SlashContext, messages: int):
         num_purge_actions, remainder = divmod(messages, 100)
         if isinstance(ctx.channel, discord.TextChannel) and ctx.author.roles:

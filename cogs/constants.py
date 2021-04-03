@@ -20,6 +20,7 @@ TRUST_COMMENTS = {
     775467892975730714: "VERY NOT TRUSTED"
 }
 MODERATORS = [683852333293109269, 541402251202134035]
+TRUSTED_ROLES = [695312034627059763, 730159564078448660, 694965056202604664]
 FORBIDDEN_WORDS = ['fuck', 'bitch', 'shit', 'gabe itch', 'penis', 'cunt', 'dildo', 'f|ck', 'n' + 'i' + 'g' + 'g' + 'a']
 FSTRING_NL = '\n'
 BASE_ERROR_EMBED = discord.Embed(color=discord.Color.red(), title="ERROR", description=None)

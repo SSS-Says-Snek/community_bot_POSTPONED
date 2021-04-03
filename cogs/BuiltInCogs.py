@@ -284,6 +284,14 @@ class DebugAndEvents(commands.Cog, name='Debug and Events'):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
+        shh = r'Users\Admin\AppData\Local\Programs\Python\Python38'
+        error_stuff = (type(error), error, error.__traceback__)
+        formatted_exception = ''.join(traceback.format_exception(*error_stuff)).strip().replace(shh, '...')
+        full_error_embed = discord.Embed(color=discord.Color.red(),
+                                         description=f"An unknown error occurred! Here's the traceback\n\n"
+                                                     f"Ignoring exception in command {ctx.command}:\n"
+                                                     f"{discordify(formatted_exception)}")
+        full_error_embed.set_author(name=f"An Exception occurred!", icon_url=X_MARK)
         if isinstance(error, commands.CheckFailure):
             global check_failure_reason
             if check_failure_reason == 'DM':
@@ -300,6 +308,8 @@ class DebugAndEvents(commands.Cog, name='Debug and Events'):
                                                   description="Sorry, that command has been marked as \"Not implemented\"."
                                                               "Please be patient while we work to finish this. Thanks!")
             await ctx.send(embed=not_implemented_embed)
+        else:
+            await ctx.send(embed=full_error_embed)
 
         if mode == 'normal':
             if isinstance(error, commands.MissingRequiredArgument):
@@ -307,8 +317,6 @@ class DebugAndEvents(commands.Cog, name='Debug and Events'):
             elif isinstance(error, commands.CommandNotFound):
                 await ctx.send('Sorry. That command does not exist')
             else:
-                brandon_inner_scope = self.bot.get_user(683852333293109269)
-                await brandon_inner_scope.send('**`ERROR ???:`** OH NO! Unknown Error!')
                 await ctx.send('**`ERROR ???"`** OH NO! Unknown Error!')
         elif mode == 'debug':
             print(f"Ignoring exception in command {ctx.command}:", file=sys.stderr)
@@ -468,6 +476,7 @@ class DebugAndEvents(commands.Cog, name='Debug and Events'):
                         with contextlib.suppress():
                             if role.name != '@everyone':
                                 await member_object.remove_roles(role)
+
                     task_cog.roles_update.cancel()
                     await member_object.add_roles(banned)
                     await owner.send(f"**`WARNING 005:`** {message.author} has used a forbidden word!\n"
@@ -647,6 +656,7 @@ class DebugAndEvents(commands.Cog, name='Debug and Events'):
     @commands.command(help=NO_HELP_ERROR_MESSAGE, brief='- whatever I want to test, IS IN HERE')
     async def function_test(self, ctx):
         await ctx.send('sorry')
+        raise ValueError("test you suck")
 
 
 class OwnerOnly(commands.Cog, name='Owner Only'):

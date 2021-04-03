@@ -64,6 +64,8 @@ SELECT * FROM guilds;
 SELECT * FROM members_old;
 SELECT * FROM pings ORDER BY datetime_object ASC;
 SELECT overall_infractions, audit_log_infractions FROM members;
+
+-- I don't know, commented out commands that I probably need sometimes?
 -- TRUNCATE TABLE pings;
 -- DROP TABLE pings;
 -- ALTER TABLE members ADD COLUMN xp BIGINT AFTER messages_sent;
