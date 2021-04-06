@@ -105,7 +105,6 @@ PATH_TO_BOT_INFO_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\
 PATH_TO_AUDIT_LOG_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files' \
                          r'\ignored_audit_log_id.json'
 PATH_TO_VARIABLES_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files\variables.json'
-SKIP_EXTENSION_LOAD = ['utility.py', 'constants.py']
 CST = pytz.timezone("US/Central")
 
 with open(PATH_TO_VARIABLES_JSON) as read_variable_json:

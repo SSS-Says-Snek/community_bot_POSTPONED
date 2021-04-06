@@ -10,6 +10,8 @@ from discord.ext import commands
 from discord_slash import cog_ext, SlashContext
 from discord_slash.utils.manage_commands import create_option
 
+import os
+
 guilds = [COMMUNITY_ID, 794887114013540383]
 
 
@@ -24,8 +26,9 @@ def is_trusted():
                 return True
         nope_embed = discord.Embed(color=discord.Color.red(),
                                    description="Permission is denied, as you do not have one of the following roles:\n"
-                                               f"{FSTRING_NL.join([discord.utils.get(ctx.guild.roles, id=role_id).name for role_id in TRUSTED_ROLES])}\n"
+                                               f"{FSTRING_NL.join([f'**{discord.utils.get(ctx.guild.roles, id=role_id).name}**' for role_id in TRUSTED_ROLES])}\n"
                                                f"To run this command, you must need one ore more of these roles.")
+        nope_embed.set_author(name="Access denied", icon_url=X_MARK)
         await ctx.send(embed=nope_embed)
         return False
 
@@ -61,6 +64,20 @@ class Slash(commands.Cog):
                                                       f"{f'message' if messages == 1 else 'messages'}!")
             cleared_embed.set_author(name=f"Cleared {str(messages)} {f'message' if messages == 1 else 'messages'}", icon_url=CHECK_MARK)
             await ctx.send(embeds=[cleared_embed])
+
+    @cog_ext.cog_slash(name="load_all_cogs", description="Loads all available cogs")
+    @is_trusted()
+    async def load_all_cogs(self, ctx: SlashContext):
+        async with ctx.channel.typing():
+            load_cog_embed = discord.Embed(color=discord.Color.green())
+            for filename in os.listdir('./cogs'):
+                if filename.endswith('.py') and filename not in SKIP_EXTENSION_LOAD:
+                    try:
+                        self.bot.load_extension(f"cogs.{filename[:-3]}")
+                    except Exception as e:
+                        await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
+                    else:
+                        await ctx.send(f'**`SUCCESS:`** Successfully loaded cogs.{filename[:-3]}')
 
 
 def setup(bot):
