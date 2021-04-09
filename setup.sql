@@ -1,4 +1,6 @@
--- THIS IS COMMUNITY BOT'S SETUP
+-- |--------------------------------------------------------------------------------------------|
+-- |Database setup for the community bot. Information for roles and members are stored here     |
+-- |--------------------------------------------------------------------------------------------|
 
 CREATE TABLE IF NOT EXISTS members_old (
     id BIGINT PRIMARY KEY,

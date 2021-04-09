@@ -98,7 +98,7 @@ WELCOME_MESSAGE = ""
 GOODBYE_MESSAGE = ""
 
 XP_PER_MINUTE_THRESHOLD = 14
-VERSION = 'v0.7.0'
+VERSION = 'v0.7.2.b2'
 MODERATOR_SECRET_PASSWORD = SECRET_PASSWORD
 PATH_TO_USER_INFO_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files\user_info.json'
 PATH_TO_BOT_INFO_JSON = r'C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\Community Bot\cogs\json files\bot_info.json'

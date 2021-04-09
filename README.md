@@ -1,5 +1,7 @@
 # Test Bot - Community Edition
 
+![Version Badge](https://img.shields.io/github/v/release/SSS-Says-Snek/community_bot?include_prereleases)
+
 A (not so simple) bot made by ME (SSS_Says_Snek#0194) for my server.
 Nothing else really...
 
