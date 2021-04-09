@@ -65,19 +65,29 @@ class Slash(commands.Cog):
             cleared_embed.set_author(name=f"Cleared {str(messages)} {f'message' if messages == 1 else 'messages'}", icon_url=CHECK_MARK)
             await ctx.send(embeds=[cleared_embed])
 
-    @cog_ext.cog_slash(name="load_all_cogs", description="Loads all available cogs")
+    @cog_ext.cog_slash(name="load_all_cogs", description="Loads all available cogs", guild_ids=guilds)
     @is_trusted()
     async def load_all_cogs(self, ctx: SlashContext):
-        async with ctx.channel.typing():
-            load_cog_embed = discord.Embed(color=discord.Color.green())
-            for filename in os.listdir('./cogs'):
-                if filename.endswith('.py') and filename not in SKIP_EXTENSION_LOAD:
-                    try:
-                        self.bot.load_extension(f"cogs.{filename[:-3]}")
-                    except Exception as e:
-                        await ctx.send(f'**`ERROR:`** {type(e).__name__} - {e}')
-                    else:
-                        await ctx.send(f'**`SUCCESS:`** Successfully loaded cogs.{filename[:-3]}')
+        # async with ctx.channel.typing():
+        load_cog_embed = discord.Embed(color=discord.Color.green(), description='')
+        num_errors = 0
+        for filename in os.listdir('./cogs'):
+            if filename.endswith('.py') and filename not in SKIP_EXTENSION_LOAD:
+                try:
+                    self.bot.load_extension(f"cogs.{filename[:-3]}")
+                except Exception as e:
+                    print("uhoh")
+                    print(load_cog_embed.description, type(load_cog_embed.description))
+                    load_cog_embed.description += f"**Error** Loading cogs.{filename[:-3]}: {type(e).__name__}\n"
+                    num_errors += 1
+                    # await ctx.send(f'**`SUCCESS:`** Successfully loaded cogs.{filename[:-3]}')
+                else:
+                    load_cog_embed.description += f"**Success!** Successfully loaded cogs.{filename[:-3]}\n"
+        if num_errors == 0:
+            load_cog_embed.set_author(name="Successfully loaded all cogs", icon_url=CHECK_MARK)
+        else:
+            load_cog_embed.set_author(name=f"{num_errors} {f'error' if num_errors == 1 else 'error'} while loading cogs", icon_url=X_MARK)
+        await ctx.send(embeds=[load_cog_embed])
 
 
 def setup(bot):
