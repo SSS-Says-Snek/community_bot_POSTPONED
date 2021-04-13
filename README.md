@@ -1,6 +1,7 @@
 # Test Bot - Community Edition
 
 ![Version Badge](https://img.shields.io/github/v/release/SSS-Says-Snek/community_bot?include_prereleases)
+![Repo Size Badge](https://img.shields.io/github/repo-size/SSS-Says-Snek/community_bot?color=%2332a852)
 
 A (not so simple) bot made by ME (SSS_Says_Snek#0194) for my server.
 Nothing else really...
@@ -38,6 +39,10 @@ but importing `cogs.MoreMathCommands` will contain even more math commands
 - `$(whois/get_user) {user context}` gets some sweet info from a user. A user context can be: An ID, a mention, or a username+discriminator (last one is limited to server only)*
 - `$clear {num messages}`
 Have a suggestion, or does something not work? Feel free to leave a pull request, or an issue
+
+## Slash Commands
+- `/ping`... just outputs the ping, but it's **pretty**
+
 
 *this command may not work in different servers right now, but that's okay as I will look into it
 

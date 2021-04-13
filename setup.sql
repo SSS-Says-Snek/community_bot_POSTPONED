@@ -69,5 +69,6 @@ SELECT overall_infractions, audit_log_infractions FROM members;
 
 -- I don't know, commented out commands that I probably need sometimes?
 -- TRUNCATE TABLE pings;
+-- TRUNCATE TABLE members;
 -- DROP TABLE pings;
 -- ALTER TABLE members ADD COLUMN xp BIGINT AFTER messages_sent;

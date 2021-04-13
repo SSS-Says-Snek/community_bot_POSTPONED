@@ -569,7 +569,7 @@ class DebugAndEvents(commands.Cog, name='Debug and Events'):
             if not will_gain_xp:
                 cursor.execute("UPDATE members SET xp=xp-20 WHERE id=%(id)s", {"id": message.author.id})
                 connection.commit()
-        else:
+        elif not message.author.bot:
             cursor.execute("UPDATE members SET xp=0 WHERE id=%(id)s", {"id": message.author.id})
             connection.commit()
 
@@ -1356,7 +1356,7 @@ class MathCommands(commands.Cog, name='Math Commands'):
                 await ctx.send(embed=solving_embed)
                 for eq in sys_of_eq_str:
                     actual_equation, thing_to_equal = eq.split('=')
-                    expression = parse_expr(actual_equation, transformations=transformations)
+                    expression = parse_expr(actual_equation.replace('^', '**'), transformations=transformations)
                     sys_of_eq_sympy_list.append(Eq(expression, int(thing_to_equal)))
                 solution = nonlinsolve(
                     sys_of_eq_sympy_list,

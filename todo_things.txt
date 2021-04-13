@@ -21,12 +21,12 @@
            them in different databases MILESTONE v0.9.0
 - Add anti-corruption, anti-raids, anti-bad-security, other stuff (6.6/10) FEATURE REQUEST
 - Give roles back when emergency lockdown finishes (4.8/10) MILESTONE v0.7.3
-- Plz convert ugly stuff to embeds... (∞ - ∞/10) MILESTONE v0.7.0 - v1.0.0 [#############------------------------------------------------]
+- Plz convert ugly stuff to embeds... (∞ - ∞/10) MILESTONE v0.7.0 - v1.0.0 [############################---------------------------------]
 
 ================================================================  GENERAL BOT THINGS:  =====================================================
 - READ ALL THE DISCORD.PY DOCS.................. (Wut.)
 - Add more auto stuff (6/10) IDEA
-- Finally, focus on editing README.md (-2.1/10) MILESTONE 0.9.0
+- Finally, focus on editing README.md (7.1/10) MILESTONE 0.9.0
 - Jump forwards on versions, yeet.
 - CONSIDER reformatting user_info.json to group all user info into 1 spot instead of having user info spread out over different spots (wut)
 - OOH. What if... I use spacy to decide if the message has a bad word or not... Nice... (0.72/10) IDEA
@@ -43,5 +43,5 @@
 - Artificial intelligence and GANs (4.54/10)
 - That BruhBot thing (5.76/10)
 - Ooh lah lah, YAML looks decent to store stuff... (4.8/10)
-- learn from A V A X A R (-645.rep999/10)
+- learn from A V A X A R (lol no/10)
 - GOOGLE: How to get size of folder including subdirectories. PRIORITY: ~~not~~ NOW?
