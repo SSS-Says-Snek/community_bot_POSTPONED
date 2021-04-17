@@ -129,11 +129,11 @@ notify_stuff = {
 }
 process = psutil.Process(os.getpid())
 wolfram_client = wolframalpha.Client(WOLFRAM_APP_ID)
-inflect_engine = inflect.engine()
+# inflect_engine = inflect.engine()
 
 # NOTE: In v1.0, ask for a password for the connection
-connection = connect(user='root', password=SECRET_PASSWORD, port='3306', database='discord_bot')
-cursor = connection.cursor(buffered=True)
+# connection = connect(user='root', password=SECRET_PASSWORD, port='3306', database='discord_bot')
+# cursor = connection.cursor(buffered=True)
 
 wait_timeout = 60 * 60 * 1000  # 1000 hours, cuz why not?
 cursor.execute(f"SET GLOBAL connect_timeout=%(wait)s", {"wait": wait_timeout})

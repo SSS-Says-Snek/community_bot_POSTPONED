@@ -1,5 +1,7 @@
 """... constants"""
 import discord
+import inflect
+from mysql.connector import connect
 
 with open(r"C:\Users\Admin\AppData\Local\Programs\Python\Python38\Discord Code\SECRET_PASSWORD.txt") as read_file:
     SECRET_PASSWORD = read_file.read().strip()
@@ -23,4 +25,8 @@ TRUSTED_ROLES = [695312034627059763, 730159564078448660, 694965056202604664]
 FORBIDDEN_WORDS = ['fuck', 'bitch', 'shit', 'gabe itch', 'penis', 'cunt', 'dildo', 'f|ck', 'n' + 'i' + 'g' + 'g' + 'a']
 SKIP_EXTENSION_LOAD = ['utility.py', 'constants.py']
 FSTRING_NL = '\n'
+
 BASE_ERROR_EMBED = discord.Embed(color=discord.Color.red(), title="ERROR", description=None)
+connection = connect(user='root', password=SECRET_PASSWORD, port='3306', database='discord_bot')
+cursor = connection.cursor(buffered=True)
+inflect_engine = inflect.engine()

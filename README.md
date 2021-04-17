@@ -2,6 +2,7 @@
 
 ![Version Badge](https://img.shields.io/github/v/release/SSS-Says-Snek/community_bot?include_prereleases)
 ![Repo Size Badge](https://img.shields.io/github/repo-size/SSS-Says-Snek/community_bot?color=%2332a852)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d2fa275e87bf40859d1e0bf97bf1bb35)](https://www.codacy.com/gh/SSS-Says-Snek/community_bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SSS-Says-Snek/community_bot&amp;utm_campaign=Badge_Grade)
 
 A (not so simple) bot made by ME (SSS_Says_Snek#0194) for my server.
 Nothing else really...
