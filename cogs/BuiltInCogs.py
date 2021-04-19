@@ -1027,19 +1027,18 @@ class FunCommands(commands.Cog, name='Fun Commands'):
         if not shutdown:
             await ctx.send('Flipping a coin...')
             flip_side = random.randint(0, 1)
+            await ctx.send("It is...")
+            time.sleep(random.random())
             if flip_side == 0:
-                await ctx.send('It is...')
-                time.sleep(random.random())
                 await ctx.send('Heads!')
             else:
-                await ctx.send('It is...')
-                time.sleep(random.random())
                 await ctx.send('Tails!')
         else:
             await ctx.send(BOT_SHUTDOWN_MESSAGE)
 
     @commands.command(help="COMING SOON!", brief='- answers some questions using wolfram alpha')
     async def wolfram(self, ctx, *, query):
+        # TODO: fix bug regarding plotting the lines
         result_full = wolfram_client.query(query)
         if result_full['@datatypes'] != 'Plot':
             try:

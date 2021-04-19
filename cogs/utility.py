@@ -94,10 +94,12 @@ def format_byte(size: int, decimal_places=3):
 
 
 def is_member(guild, someone):
+    """Checks if a user is inside a guild"""
     return someone in guild.members
 
 
 def is_string_id(string_id):
+    """Checks if a string is a valid user ID string"""
     if re.match('<@![0-9]+>', string_id):
         return True
     return False
@@ -111,6 +113,7 @@ def is_discord_username(username):
 
 
 def nested_dict_values(d):
+    """SUPPOSEDLY returns all values of dicts, even nested (doesn't work for list values, so I'll work on it a bit more)"""
     for v in d.values():
         if isinstance(v, dict):
             yield from nested_dict_values(v)
@@ -132,6 +135,7 @@ def discordify(message):
 
 
 def mysql_to_dict(mysql_fetchall, columns):
+    """Function used to return a dict with columns as its keys and the values as its values"""
     mysql_fetchall = list(zip(*mysql_fetchall))
     return {columns[i]: mysql_fetchall[i] for i in range(len(columns))}
 
@@ -142,6 +146,7 @@ def mysql_to_dict_id_as_key_info_as_dict(mysql_fetchall, columns):
 
 
 def censor(string, num_letter_censor=1, mode="discord", words_to_censor=FORBIDDEN_WORDS):
+    """Censors a given string"""
     if mode == "discord":
         asterisk = r'\*'
     else:

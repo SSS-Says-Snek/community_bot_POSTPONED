@@ -318,12 +318,12 @@ DATE OF PLANNED RELEASE: Thurs Mar 25, 2021, at 8:13 AM
 
 v0.7.2 changelogs:
 - NEW: $solve is now fully PRETTY. Gone is that... sad UI, replaced by a (pretty) sleek embed UI!
-- MODIFIED: $
+- PERFORMANCE ENHANCEMENTS: Just added some docstrings, comments, optimization, blah blah blah...
 STATUS: PENDING
 
 DATE OF PLANNING: UNKNOWN
-DATE LAST MODIFIED: Thurs Apr 9, 2021, at 1:17 PM
-DATE OF PLANNED RELEASE: ??? Apr 15-18, at ???:??? ??
+DATE LAST MODIFIED: Mon Apr 19, 2021, at 3:32 PM
+DATE OF PLANNED RELEASE: ???
 
 
 
