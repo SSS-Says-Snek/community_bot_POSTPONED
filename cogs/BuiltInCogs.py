@@ -1986,6 +1986,7 @@ class UserCommands(commands.Cog, name='User Commands'):
                     summary_commands = '```\n'
                     detailed_commands = ''
                     command_list = [command for command in cog.walk_commands()]
+                    command_list.sort(key=lambda x: x.name)
                     for command in command_list:
                         summary_commands += f"{command.name}\n"
                         detailed_commands += f"`{self.bot.command_prefix}{command.name}` {command.brief}\n"
