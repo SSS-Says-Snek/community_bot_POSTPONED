@@ -1,5 +1,7 @@
 # Test Bot - Community Edition
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fcd5e781c124456284cc16b4c43fc86e)](https://app.codacy.com/gh/SSS-Says-Snek/community_bot?utm_source=github.com&utm_medium=referral&utm_content=SSS-Says-Snek/community_bot&utm_campaign=Badge_Grade_Settings)
+
 ![Version Badge](https://img.shields.io/github/v/release/SSS-Says-Snek/community_bot?include_prereleases)
 ![Repo Size Badge](https://img.shields.io/github/repo-size/SSS-Says-Snek/community_bot?color=%2332a852)
 
